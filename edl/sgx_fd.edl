@@ -28,16 +28,27 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
- 
+
 enclave {
 
-    from "sgx_fd.edl" import *;
-    
-	trusted {
+    include "inc/stat.h"
+
+    trusted {
         /* define ECALLs here. */
     };
 
     untrusted {
-        /* define OCALLs here. */
+        size_t u_read_ocall([out] int *error, int fd, [out, size=count] void *buf, size_t count);
+        size_t u_pread64_ocall([out] int *error, int fd, [out, size=count] void *buf, size_t count, int64_t offset);
+
+        size_t u_write_ocall([out] int *error, int fd, [in, size=count] const void *buf, size_t count);
+        size_t u_pwrite64_ocall([out] int *error, int fd, [in, size=count] const void *buf, size_t count, int64_t offset);
+
+        int u_fcntl_arg0_ocall([out] int *error, int fd, int cmd);
+        int u_fcntl_arg1_ocall([out] int *error, int fd, int cmd, int arg);
+        int u_ioctl_arg0_ocall([out] int *error, int fd, int request);
+        int u_ioctl_arg1_ocall([out] int *error, int fd, int request, [in, out] int *arg);
+
+        int u_close_ocall([out] int *error, int fd);                   
     };
 };

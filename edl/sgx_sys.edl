@@ -31,13 +31,11 @@
  
 enclave {
 
-    from "sgx_fd.edl" import *;
-    
 	trusted {
         /* define ECALLs here. */
     };
 
     untrusted {
-        /* define OCALLs here. */
+        long u_sysconf_ocall([out] int *error, int name);
     };
 };
