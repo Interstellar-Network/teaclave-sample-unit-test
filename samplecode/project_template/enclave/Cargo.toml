@@ -1,4 +1,36 @@
 [workspace]
+# NEEDED, else
+#    Compiling http-grpc-client v0.3.0 (/.../rs-common/http-grpc-client)
+# error[E0152]: duplicate lang item in crate `std` (which `serde` depends on): `panic_impl`.
+#   |
+#   = note: the lang item is first defined in crate `sgx_tstd` (which `http_req` depends on)
+#   = note: first definition in `sgx_tstd` loaded from /.../rs-common/tests_sgx/samplecode/project_template/enclave/target/release/deps/libsgx_tstd-ebb37a331528b577.rmeta
+#   = note: second definition in `std` loaded from /.../.rustup/toolchains/nightly-2022-10-22-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libstd-7b2106000b625742.rlib
+# Why?
+# b/c of parity-scale-codec: with resolver = "2"
+# serde v1.0.152
+# ├── http-grpc-client v0.3.0 (/.../rs-common/http-grpc-client)
+# │   └── template v1.0.0 (/.../rs-common/tests_sgx/samplecode/project_template/enclave)
+# └── serde_json v1.0.91
+#     └── http-grpc-client v0.3.0 (/.../rs-common/http-grpc-client) (*)
+# serde v1.0.152
+# └── toml v0.5.11
+#     └── proc-macro-crate v1.2.1
+#         └── parity-scale-codec-derive v3.1.4 (proc-macro)
+#             └── parity-scale-codec v3.2.2
+#                 └── http-grpc-client v0.3.0 (/.../rs-common/http-grpc-client) (*)
+# But with resolver = "2" we get
+# serde v1.0.152
+# ├── http-grpc-client v0.3.0 (/.../rs-common/http-grpc-client)
+# │   └── template v1.0.0 (/.../rs-common/tests_sgx/samplecode/project_template/enclave)
+# ├── serde_json v1.0.91
+# │   └── http-grpc-client v0.3.0 (/.../rs-common/http-grpc-client) (*)
+# └── toml v0.5.11
+#     └── proc-macro-crate v1.2.1
+#         └── parity-scale-codec-derive v3.1.4 (proc-macro)
+#             └── parity-scale-codec v3.2.2
+#                 └── http-grpc-client v0.3.0 (/.../rs-common/http-grpc-client) (*)
+resolver = "2"
 
 [package]
 name = "template"
@@ -10,43 +42,11 @@ name = "sample" # Library name. If you change this, please reflect those changes
 crate-type = ["staticlib"]
 
 [features]
-default = [
-    # "sp-io/sgx",
-    # "environmental/sgx",
-    # "itp-sgx-externalities/sgx",
-]
+default = []
 
 [dependencies]
-# TODO "with_http_req_sgx",
-http-grpc-client = { path = "../../../../http-grpc-client", default-features = false, features = ["sgx","with_http_req_sgx"] }
-# # W/A to force a recent version of sgx_unwind
-# # error[E0557]: feature has been removed
-# #   --> /home/xxx/.cargo/git/checkouts/teaclave-sgx-sdk-be25c2ad2f03718d/a6a172e/sgx_unwind/lib.rs:24:12   |
-# # 24 | #![feature(unwind_attributes)]
-# #    |            ^^^^^^^^^^^^^^^^^ feature has been removed   |
-# #    = note: use the C-unwind ABI instead
-# sgx_tstd = { default-features = false, version = "1.1.6", git = "https://github.com/apache/teaclave-sgx-sdk.git", rev = "v1.1.6" }
-# # TODO move out of here and into main package? this is needed only for "disable_target_static_assertions"
-# # sp-runtime-interface = { default-features = false, git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v0.9.36" }
-# # ^^^^ not needed; already done by "sp-io" below cf https://github.com/integritee-network/worker/blob/master/core-primitives/substrate-sgx/sp-io/Cargo.toml
-# # same as sp-runtime-interface? MUST use integritee's version NOT https://github.com/paritytech/substrate.git
-# # sp-io = { default-features = false, git = "https://github.com/integritee-network/worker.git", features = ["disable_oom", "disable_panic_handler", "disable_allocator", "sgx"] }
-# # https://github.com/integritee-network/worker/blob/master/core-primitives/substrate-sgx/environmental/Cargo.toml
-# environmental = { version = "1.1.3", default-features = false, git = "https://github.com/integritee-network/worker.git", rev = "b54c825", features = ["sgx"] }
-# itp-sgx-externalities = { default-features = false, git = "https://github.com/integritee-network/worker.git", rev = "b54c825", features = ["sgx"] }
-
-# log = { version = "0.4", default-features = false }
-# base64 = { default-features = false, features = ["alloc"], version = "0.21" }
-# bytes = { version = "1", default-features = false }
-# # https://github.com/tokio-rs/prost#using-prost-in-a-no_std-crate
-# prost = { version = "0.11", default-features = false, features = ["prost-derive"] }
-# serde = { version = "1", default-features = false }
-# serde_json = { version = "1", default-features = false, features = ['alloc'] }
-# hex = { version = "0.4", default-features = false, features = ['alloc'] }
-# codec = { package = "parity-scale-codec", version = "3", default-features = false, features = [
-# 	"derive",
-# ] }
-# snafu = { version = "0.7", default-features = false }
+# TODO add feature "with_sp_offchain"
+http-grpc-client = { path = "../../../../http-grpc-client", default-features = false, features = ["sgx", "with_http_req_sgx"] }
 
 [target.'cfg(not(target_env = "sgx"))'.dependencies] # You can remove what you don't need, except types and tstd
 sgx_types = { git = "https://github.com/apache/teaclave-sgx-sdk.git", rev = "v1.1.6" }
@@ -60,18 +60,8 @@ sgx_libc = { git = "https://github.com/apache/teaclave-sgx-sdk.git", rev = "v1.1
 
 # cf /.../integritee-worker/enclave-runtime/Cargo.toml
 # and https://github.com/integritee-network/worker/blob/master/core-primitives/substrate-sgx/sp-io/Cargo.toml
-[patch."https://github.com/paritytech/substrate.git"]
-sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "b54c825" }
-
 [patch."https://github.com/paritytech/substrate"]
 sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "b54c825" }
-
-# [patch.crates-io]
-# environmental = { version = "1.1.3", git = "https://github.com/integritee-network/worker.git", rev = "b54c825", features = ["sgx"] }
-
-# [patch."https://github.com/integritee-network/worker.git"]
-# environmental = { version = "1.1.3", git = "https://github.com/integritee-network/worker.git", rev = "b54c825", features = ["sgx"] }
-# itp-sgx-externalities = { version = "0.9.0", git = "https://github.com/integritee-network/worker.git", rev = "b54c825" }
 
 # cf /.../integritee-worker/enclave-runtime/Cargo.toml
 [patch."https://github.com/apache/teaclave-sgx-sdk.git"]
@@ -90,14 +80,3 @@ sgx_tseal = { version = "1.1.6", git = "https://github.com/apache/incubator-teac
 sgx_tstd = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
 sgx_tunittest = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
 sgx_types = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-
-[patch.crates-io]
-getrandom = { git = "https://github.com/integritee-network/getrandom-sgx", branch = "update-v2.3" }
-# WARNING! error: duplicate lang item in crate `sgx_tstd` (which `log` depends on): `f32_runtime`
-# FIX: make sure ALL dependencies use "log-sgx"+"env_logger-sgx" when compiling for the enclave(ie features "sgx")
-# DO NOT remove those: it would compile but nothing would be logged!
-log = { git = "https://github.com/integritee-network/log-sgx" }
-env_logger = { git = "https://github.com/integritee-network/env_logger-sgx" }
-
-[patch."https://github.com/mesalock-linux/log-sgx"]
-log = { git = "https://github.com/integritee-network/log-sgx" }
