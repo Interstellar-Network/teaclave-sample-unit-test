@@ -29,14 +29,12 @@ use sgx_types::*;
 use std::io::{self, Write};
 use std::slice;
 
-// TODO? Ideally we want to run some basic tests, but it would require more work:
-// - AT LEAST: add some missing "import" in Enclave.edl
-// - resolve "undefined reference" errors for each of those
-// - FIX runtime error: memory allocation of 655360 bytes failed
 fn test_lib() {
-    // let garbled = lib_garble_rs::garble_skcd(include_bytes!(
-    //     "../../../../../lib-garble-rs/examples/data/display_message_640x360_2digits.skcd.pb.bin"
-    // )).unwrap();
+    let garbled = lib_garble_rs::garble_skcd(include_bytes!(
+        "../../../../../lib-garble-rs/examples/data/display_message_640x360_2digits.skcd.pb.bin"
+    ))
+    .unwrap();
+    println!("test_lib[1] : {:?}", garbled.config);
 }
 
 #[no_mangle]
