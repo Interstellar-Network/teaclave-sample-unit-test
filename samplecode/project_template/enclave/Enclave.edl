@@ -18,10 +18,14 @@
 /* This is your enclave EDL file, please specify the EDL files you need and ECALLs/OCALLs needed */
 
 enclave {
+    // OK using https://github.com/apache/incubator-teaclave-sgx-sdk/blob/master/samplecode/http_req/enclave/Enclave.edl#L18
     from "sgx_tstd.edl" import *;
-    from "sgx_stdio.edl" import *;
-    from "sgx_backtrace.edl" import *;
+    from "sgx_net.edl" import *;
+    from "sgx_pipe.edl" import *;
     from "sgx_tstdc.edl" import *;
+    from "sgx_file.edl" import *;
+    from "sgx_env.edl" import *;
+
     // else:
     // /opt/intel/sgxsdk/binutils/ld: ../lib//libenclave.a(pthread.o): in function `_pthread_thread_run':
     // pthread.cpp:(.text._pthread_thread_run+0xb3): undefined reference to `pthread_wakeup_ocall'

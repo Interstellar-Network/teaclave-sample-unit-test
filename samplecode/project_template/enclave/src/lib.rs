@@ -28,30 +28,41 @@ extern crate sgx_tstd as std;
 use sgx_types::*;
 use std::io::{self, Write};
 use std::slice;
+use std::string::ToString;
 
 // TODO? Ideally we want to run some basic tests, but it would require more work:
 // - AT LEAST: add some missing "import" in Enclave.edl
 // - resolve "undefined reference" errors for each of those
 // - FIX runtime error: [-] ECALL Enclave Failed SGX_ERROR_STACK_OVERRUN!
 fn test_lib() {
-    // This WOULD FAIL, cf docstring if this fn
-    // let response = http_grpc_client::sp_offchain_fetch_from_remote_grpc_web(
-    //     None,
-    //     "https://www.google.com",
-    //     &http_grpc_client::RequestMethod::Get,
-    //     None,
-    //     core::time::Duration::from_millis(1000),
-    // )
-    // .unwrap();
+    // URLs MUST match CI
+    // using: https://hub.docker.com/r/hashicorp/http-echo/
 
-    // let response = http_grpc_client::http_req_fetch_from_remote_grpc_web(
-    //     None,
-    //     "http://postman-echo.com/get?hello=world",
-    //     &http_grpc_client::RequestMethod::Get,
-    //     None,
-    //     core::time::Duration::from_millis(1000),
-    // )
-    // .unwrap();
+    let echo_url = std::env::var("HTTP_ECHO_URL").unwrap_or("http://127.0.0.1:8080/".to_string());
+
+    let (response, _response_content_type) = http_grpc_client::http_req_fetch_from_remote_grpc_web(
+        None,
+        &echo_url,
+        &http_grpc_client::RequestMethod::Get,
+        None,
+        core::time::Duration::from_millis(1000),
+    )
+    .unwrap();
+    println!("test_lib [1]: {:?}", response);
+
+    // This WOULD FAIL, cf docstring of this fn and http-grpc-client/README.md
+    // (points to https://github.com/integritee-network/worker/blob/f5674c4afb0d5499567b870b3d9d2b00bab05766/core-primitives/substrate-sgx/sp-io/src/lib.rs#L836)
+    // FAIL: "thread '<unnamed>' panicked at 'called `Result::unwrap()` on an `Err` value: IoError', src/lib.rs:56:10"
+    // let (response, _response_content_type) =
+    //     http_grpc_client::sp_offchain_fetch_from_remote_grpc_web(
+    //         None,
+    //         "http://postman-echo.com/get?hello=world",
+    //         &http_grpc_client::RequestMethod::Get,
+    //         None,
+    //         core::time::Duration::from_millis(1000),
+    //     )
+    //     .unwrap();
+    // println!("test_lib [2]: {:?}", response);
 }
 
 #[no_mangle]
