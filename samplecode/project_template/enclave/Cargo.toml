@@ -45,7 +45,8 @@ crate-type = ["staticlib"]
 default = []
 
 [dependencies]
-http-grpc-client = { path = "../../../../http-grpc-client", default-features = false, features = ["sgx", "with_http_req_sgx", "with_sp_offchain"] }
+pallet-ocw-garble = { path = "../../../../pallets/ocw-garble", default-features = false, features = ["sgx"] }
+pallet-ocw-circuits = { path = "../../../../pallets/ocw-circuits", default-features = false, features = ["sgx"] }
 # ADDED:
 # The sp-io patch MUST activate sp-io/sgx else it FAIL with:
 # Compiling environmental v1.1.3 (https://github.com/integritee-network/worker.git?rev=b54c825#b54c825f)
