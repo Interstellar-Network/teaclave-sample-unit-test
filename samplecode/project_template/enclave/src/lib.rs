@@ -32,26 +32,11 @@ use std::slice;
 // TODO? Ideally we want to run some basic tests, but it would require more work:
 // - AT LEAST: add some missing "import" in Enclave.edl
 // - resolve "undefined reference" errors for each of those
-// - FIX runtime error: [-] ECALL Enclave Failed SGX_ERROR_STACK_OVERRUN!
+// - FIX runtime error: memory allocation of 655360 bytes failed
 fn test_lib() {
-    // This WOULD FAIL, cf docstring if this fn
-    // let response = http_grpc_client::sp_offchain_fetch_from_remote_grpc_web(
-    //     None,
-    //     "https://www.google.com",
-    //     &http_grpc_client::RequestMethod::Get,
-    //     None,
-    //     core::time::Duration::from_millis(1000),
-    // )
-    // .unwrap();
-
-    // let response = http_grpc_client::http_req_fetch_from_remote_grpc_web(
-    //     None,
-    //     "http://postman-echo.com/get?hello=world",
-    //     &http_grpc_client::RequestMethod::Get,
-    //     None,
-    //     core::time::Duration::from_millis(1000),
-    // )
-    // .unwrap();
+    // let garbled = lib_garble_rs::garble_skcd(include_bytes!(
+    //     "../../../../../lib-garble-rs/examples/data/display_message_640x360_2digits.skcd.pb.bin"
+    // )).unwrap();
 }
 
 #[no_mangle]

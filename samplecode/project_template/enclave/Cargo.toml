@@ -45,7 +45,8 @@ crate-type = ["staticlib"]
 default = []
 
 [dependencies]
-http-grpc-client = { path = "../../../../http-grpc-client", default-features = false, features = ["sgx", "with_http_req_sgx", "with_sp_offchain"] }
+lib-garble-rs = { path = "../../../../lib-garble-rs", default-features = false, features = ["sgx"] }
+ipfs-client-http-req = { path = "../../../../ipfs-client-http-req", default-features = false, features = ["sgx"] }
 # ADDED:
 # The sp-io patch MUST activate sp-io/sgx else it FAIL with:
 # Compiling environmental v1.1.3 (https://github.com/integritee-network/worker.git?rev=b54c825#b54c825f)
