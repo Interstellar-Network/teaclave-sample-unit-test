@@ -6,5 +6,6 @@ Created using `git filter-repo --path samplecode/project_template --path LICENSE
 
 ## Build
 
+- `source /opt/intel/sgxsdk/environment`
 - `export CUSTOM_EDL_PATH=$PWD/edl` && `export CUSTOM_COMMON_PATH=$PWD/common`
-- `(cd samplecode/project_template && make && cd bin/ && ./app)`
+- `(cd samplecode/project_template && make clean && make && cd bin/ && ./app)`

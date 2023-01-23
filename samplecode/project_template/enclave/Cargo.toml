@@ -46,7 +46,43 @@ default = []
 
 [dependencies]
 # TODO add feature "with_sp_offchain"
-http-grpc-client = { path = "../../../../http-grpc-client", default-features = false, features = ["sgx", "with_http_req_sgx", "with_sp_offchain_sgx"] }
+http-grpc-client = { path = "../../../../http-grpc-client", default-features = false, features = ["sgx", "with_http_req_sgx", "with_sp_offchain"] }
+# ADDED:
+# The sp-io patch MUST activate sp-io/sgx else it FAIL with:
+# Compiling environmental v1.1.3 (https://github.com/integritee-network/worker.git?rev=b54c825#b54c825f)
+# error: Either feature "std" or feature "sgx" must be enabled
+#   --> /home/pratn/.cargo/git/checkouts/worker-f7051a772af62690/b54c825/core-primitives/substrate-sgx/environmental/src/lib.rs:57:1
+#    |
+# 57 | compile_error!("Either feature \"std\" or feature \"sgx\" must be enabled");
+#    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+# error[E0433]: failed to resolve: use of undeclared crate or module `std`
+#   --> /home/pratn/.cargo/git/checkouts/worker-f7051a772af62690/b54c825/core-primitives/substrate-sgx/environmental/src/lib.rs:75:9
+#    |
+# 75 | pub use std::thread::LocalKey;
+#    |         ^^^ use of undeclared crate or module `std`
+#
+# NOTE: we NEED a "fake" dependency here(and it MUST match the path below) to force sp-io to be downloaded
+# (This is normally a dep of various crates inside integritee-worker)
+# else:
+#     Updating git repository `https://github.com/paritytech/substrate.git`
+# error: failed to select a version for `sp-io`.
+#     ... required by package `template v1.0.0 (/home/pratn/Documents/interstellar/rs-common/tests_sgx/samplecode/project_template/enclave)`
+# versions that meet the requirements `^7` are: 7.0.0
+# the package `template` depends on `sp-io`, with features: `sgx` but `sp-io` does not have these features.
+sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "b54c825", default-features = false, features = ["sgx"] }
+# Same issues from this dep:
+# We MUST enable "sp-application-crypto/full_crypto; it is normally done by sp-io but only for "std"
+# So we add a "fake" dep to "sp-application-crypto" here
+# cf /.../integritee-worker/core/parentchain/light-client/Cargo.toml
+# and /.../integritee-worker/app-libs/stf/Cargo.toml
+# WITHOUT:
+#    Compiling sp-application-crypto v7.0.0 (https://github.com/paritytech/substrate.git?branch=polkadot-v0.9.36#cb4f2491)
+# error[E0046]: not all trait items implemented, missing: `Pair`
+#    --> /home/xxx/.cargo/git/checkouts/substrate-7e08433d4c370a21/cb4f249/primitives/application-crypto/src/lib.rs:274:3
+#     |
+# 274 |         impl $crate::CryptoType for Public {}
+#     |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ missing `Pair` in implementation
+sp-application-crypto = { default-features = false, features = ["full_crypto"], git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v0.9.36" }
 
 [target.'cfg(not(target_env = "sgx"))'.dependencies] # You can remove what you don't need, except types and tstd
 sgx_types = { git = "https://github.com/apache/teaclave-sgx-sdk.git", rev = "v1.1.6" }
@@ -58,14 +94,30 @@ sgx_serialize = { git = "https://github.com/apache/teaclave-sgx-sdk.git", rev = 
 sgx_alloc = { git = "https://github.com/apache/teaclave-sgx-sdk.git", rev = "v1.1.6" }
 sgx_libc = { git = "https://github.com/apache/teaclave-sgx-sdk.git", rev = "v1.1.6" }
 
-# cf /.../integritee-worker/enclave-runtime/Cargo.toml
+################################################################################
+# patches below are copy-pasted(and adapted) from https://github.com/integritee-network/worker/blob/b54c825fb13fe99f77fe549798a6c63853d81c34/enclave-runtime/Cargo.toml#L137
+# adapted = local patches are rewritten to a git url
+#
+# NOTE: it COULD(and probably CAN) compile without those, but we are interested in making our lib
+# compile with integritee teaclave-flavored NOT just standard teaclave
 # and https://github.com/integritee-network/worker/blob/master/core-primitives/substrate-sgx/sp-io/Cargo.toml
+#
+[patch.crates-io]
+env_logger = { git = "https://github.com/integritee-network/env_logger-sgx" }
+getrandom = { git = "https://github.com/integritee-network/getrandom-sgx", branch = "update-v2.3" }
+log = { git = "https://github.com/integritee-network/log-sgx" }
+
+[patch."https://github.com/mesalock-linux/log-sgx"]
+log = { git = "https://github.com/integritee-network/log-sgx" }
+
 [patch."https://github.com/paritytech/substrate"]
 sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "b54c825" }
 [patch."https://github.com/paritytech/substrate.git"]
 sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "b54c825" }
 
-# cf /.../integritee-worker/enclave-runtime/Cargo.toml
+#[patch."https://github.com/integritee-network/frontier"]
+#pallet-evm = { path = "../../frontier/frame/evm"}
+
 [patch."https://github.com/apache/teaclave-sgx-sdk.git"]
 sgx_alloc = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
 sgx_crypto_helper = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
@@ -83,11 +135,13 @@ sgx_tstd = { version = "1.1.6", git = "https://github.com/apache/incubator-teacl
 sgx_tunittest = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
 sgx_types = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
 
-# ELSE:
-#    Compiling environmental v1.1.3 (https://github.com/integritee-network/worker.git?rev=b54c825#b54c825f)
-# error: Either feature "std" or feature "sgx" must be enabled
-#   --> /home/xxx/.cargo/git/checkouts/worker-f7051a772af62690/b54c825/core-primitives/substrate-sgx/environmental/src/lib.rs:57:1
-#    |
-# 57 | compile_error!("Either feature \"std\" or feature \"sgx\" must be enabled");
-# [patch."https://github.com/integritee-network/worker.git"]
-# environmental = { version = "1.1.3", git = "https://github.com/integritee-network/worker.git", rev = "b54c825" }
+#[patch."https://github.com/scs/substrate-api-client"]
+#substrate-api-client = { path = "../../../scs/substrate-api-client" }
+
+#[patch."https://github.com/integritee-network/pallets.git"]
+#pallet-parentchain = { path = "../../pallets/parentchain" }
+#itp-types = {  path = "../../pallets/primitives/types" }
+#itp-utils = {  path = "../../pallets/primitives/utils" }
+
+#[patch."https://github.com/integritee-network/http_req"]
+#http_req-sgx = {  package = "http_req", path = '../../http_req' }
