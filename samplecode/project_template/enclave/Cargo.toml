@@ -45,7 +45,6 @@ crate-type = ["staticlib"]
 default = []
 
 [dependencies]
-# TODO add feature "with_sp_offchain"
 http-grpc-client = { path = "../../../../http-grpc-client", default-features = false, features = ["sgx", "with_http_req_sgx", "with_sp_offchain"] }
 # ADDED:
 # The sp-io patch MUST activate sp-io/sgx else it FAIL with:
@@ -102,6 +101,7 @@ sgx_libc = { git = "https://github.com/apache/teaclave-sgx-sdk.git", rev = "v1.1
 # compile with integritee teaclave-flavored NOT just standard teaclave
 # and https://github.com/integritee-network/worker/blob/master/core-primitives/substrate-sgx/sp-io/Cargo.toml
 #
+# NOTE: update in tests_sgx/samplecode/project_template/app/Cargo.toml if you change those!
 [patch.crates-io]
 env_logger = { git = "https://github.com/integritee-network/env_logger-sgx" }
 getrandom = { git = "https://github.com/integritee-network/getrandom-sgx", branch = "update-v2.3" }
