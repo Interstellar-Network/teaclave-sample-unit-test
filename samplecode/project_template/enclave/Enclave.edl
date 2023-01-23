@@ -22,6 +22,11 @@ enclave {
     from "sgx_stdio.edl" import *;
     from "sgx_backtrace.edl" import *;
     from "sgx_tstdc.edl" import *;
+    // else:
+    // /opt/intel/sgxsdk/binutils/ld: ../lib//libenclave.a(pthread.o): in function `_pthread_thread_run':
+    // pthread.cpp:(.text._pthread_thread_run+0xb3): undefined reference to `pthread_wakeup_ocall'
+    // cf https://github.com/intel/linux-sgx/issues/826
+    from "sgx_pthread.edl" import *;
     trusted
     {
         /* ECALLs */

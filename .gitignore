@@ -5,7 +5,6 @@ Cargo.lock
 *.o
 
 #app
-app
 
 #library
 *.a
