@@ -21,9 +21,9 @@ log = { git = "https://github.com/integritee-network/log-sgx" }
 log = { git = "https://github.com/integritee-network/log-sgx" }
 
 [patch."https://github.com/paritytech/substrate"]
-sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "b54c825" }
+sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "d3b6371613e2470ab5680c1bc7b68cd85cc2773b" }
 [patch."https://github.com/paritytech/substrate.git"]
-sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "b54c825" }
+sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "d3b6371613e2470ab5680c1bc7b68cd85cc2773b" }
 
 #[patch."https://github.com/integritee-network/frontier"]
 #pallet-evm = { path = "../../frontier/frame/evm"}
