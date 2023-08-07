@@ -31,10 +31,10 @@ use std::slice;
 
 fn test_lib() {
     let garbled = lib_garble_rs::garble_skcd(include_bytes!(
-        "../../../../../lib-garble-rs/examples/data/display_message_640x360_2digits.skcd.pb.bin"
+        "../../../../../lib-garble-rs/examples/data/result_display_message_120x52_2digits.postcard.bin"
     ))
     .unwrap();
-    println!("test_lib[1] : {:?}", garbled.config);
+    println!("test_lib[1] : {:?}", garbled.get_display_config());
 }
 
 #[no_mangle]
