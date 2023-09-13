@@ -24,11 +24,14 @@ extern crate sgx_types;
 #[cfg(not(target_env = "sgx"))]
 #[macro_use]
 extern crate sgx_tstd as std;
+extern crate interstellar_http_client;
 
 use sgx_types::*;
 use std::io::{self, Write};
 use std::slice;
 use std::string::ToString;
+
+use interstellar_http_client::SendRequest;
 
 // TODO? Ideally we want to run some basic tests, but it would require more work:
 // - AT LEAST: add some missing "import" in Enclave.edl
@@ -40,10 +43,10 @@ fn test_lib() {
 
     let echo_url = std::env::var("HTTP_ECHO_URL").unwrap_or("http://127.0.0.1:8080/".to_string());
 
-    let (response, _response_content_type) = http_grpc_client::http_req_fetch_from_remote_grpc_web(
+    let (response, _response_content_type) = interstellar_http_client::ClientHttpReq::send_request(
         None,
         &echo_url,
-        &http_grpc_client::RequestMethod::Get,
+        &interstellar_http_client::MyRequestMethod::Get,
         None,
         core::time::Duration::from_millis(1000),
     )
