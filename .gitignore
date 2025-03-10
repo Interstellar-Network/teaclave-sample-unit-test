@@ -1,5 +1,6 @@
 .idea
-Cargo.lock
+# TEMP commit `Cargo.lock` cf Interstellar-Network/roadmap#102
+# Cargo.lock
 
 #object file
 *.o
