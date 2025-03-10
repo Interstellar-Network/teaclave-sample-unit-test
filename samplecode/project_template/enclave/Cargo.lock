@@ -65,12 +65,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e999941b234f3131b00bc13c22d06e8c5ff726d1b6318ac7eb276997bbb4fef0"
 
 [[package]]
-name = "anyhow"
-version = "1.0.71"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9c7d0618f0e0b7e8ff11427422b64564d5fb0be1940354bfe2e0529b18a9d9b8"
-
-[[package]]
 name = "approx"
 version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -278,9 +272,9 @@ dependencies = [
 [[package]]
 name = "circuit-gen-rs"
 version = "0.1.0"
-source = "git+https://github.com/Interstellar-Network/lib_circuits.git#66d1a4ab44c2cf98030d95492f71cc845bd441b7"
+source = "git+ssh://git@github.com/Interstellar-Network/lib_circuits-internal.git#98888f2e7d468770869acd4632106331b31ada1e"
 dependencies = [
- "circuit-types-rs",
+ "circuit-types-rs 0.1.0 (git+ssh://git@github.com/Interstellar-Network/lib_circuits-internal.git)",
  "cmake",
  "cxx",
  "cxx-build",
@@ -290,7 +284,18 @@ dependencies = [
 [[package]]
 name = "circuit-types-rs"
 version = "0.1.0"
-source = "git+https://github.com/Interstellar-Network/lib_circuits.git#66d1a4ab44c2cf98030d95492f71cc845bd441b7"
+source = "git+ssh://git@github.com/Interstellar-Network/lib_circuits-internal.git?branch=main#98888f2e7d468770869acd4632106331b31ada1e"
+dependencies = [
+ "hashbrown 0.14.0",
+ "postcard 1.0.4",
+ "serde",
+ "snafu",
+]
+
+[[package]]
+name = "circuit-types-rs"
+version = "0.1.0"
+source = "git+ssh://git@github.com/Interstellar-Network/lib_circuits-internal.git#98888f2e7d468770869acd4632106331b31ada1e"
 dependencies = [
  "hashbrown 0.14.0",
  "nom",
@@ -440,7 +445,7 @@ dependencies = [
  "proc-macro2",
  "quote",
  "scratch",
- "syn 2.0.23",
+ "syn 2.0.100",
 ]
 
 [[package]]
@@ -457,7 +462,7 @@ checksum = "50c49547d73ba8dcfd4ad7325d64c6d5391ff4224d498fc39a6f3f49825a530d"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.23",
+ "syn 2.0.100",
 ]
 
 [[package]]
@@ -481,7 +486,7 @@ dependencies = [
  "proc-macro2",
  "quote",
  "strsim",
- "syn 2.0.23",
+ "syn 2.0.100",
 ]
 
 [[package]]
@@ -492,7 +497,7 @@ checksum = "29a358ff9f12ec09c3e61fef9b5a9902623a695a46a917b07f269bff1445611a"
 dependencies = [
  "darling_core",
  "quote",
- "syn 2.0.23",
+ "syn 2.0.100",
 ]
 
 [[package]]
@@ -832,16 +837,6 @@ dependencies = [
 
 [[package]]
 name = "hashbrown"
-version = "0.13.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "43a3c133739dddd0d2990f9a4bdf8eb4b21ef50e4851ca85ab661199821d510e"
-dependencies = [
- "ahash 0.8.3",
- "serde",
-]
-
-[[package]]
-name = "hashbrown"
 version = "0.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2c6201b9ff9fd90a5a3bac2e56a830d0caa509576f0e503818ee82c181b3437a"
@@ -970,7 +965,7 @@ dependencies = [
 [[package]]
 name = "interstellar-http-client"
 version = "0.5.0"
-source = "git+https://github.com/Interstellar-Network/rs-common.git?branch=main#beddd7b60a854119debac75b45cb876d401209bf"
+source = "git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=main#0272cab77323c02286599fe10a32e5175dbe09a0"
 dependencies = [
  "base64 0.21.2",
  "bytes",
@@ -989,7 +984,7 @@ dependencies = [
 [[package]]
 name = "interstellar-ipfs-client"
 version = "0.5.0"
-source = "git+https://github.com/Interstellar-Network/rs-common.git?branch=main#beddd7b60a854119debac75b45cb876d401209bf"
+source = "git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=main#0272cab77323c02286599fe10a32e5175dbe09a0"
 dependencies = [
  "interstellar-http-client",
  "log",
@@ -1069,17 +1064,17 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
 [[package]]
 name = "lib-garble-rs"
 version = "2.0.0"
-source = "git+https://github.com/Interstellar-Network/lib-garble-rs.git?branch=main#c0d249ba4696d63d26da199e3bf58252baa59c5a"
+source = "git+ssh://git@github.com/Interstellar-Network/lib-garble-rs-internal.git?branch=main#d382e3edc6057786abc630bbd7514137400b1987"
 dependencies = [
  "bitvec",
  "bytes",
- "hashbrown 0.13.2",
+ "circuit-types-rs 0.1.0 (git+ssh://git@github.com/Interstellar-Network/lib_circuits-internal.git?branch=main)",
+ "hashbrown 0.14.0",
  "image",
  "imageproc",
  "log",
  "num_enum",
  "postcard 1.0.4",
- "prost",
  "rand",
  "rand_chacha",
  "rusttype",
@@ -1290,22 +1285,22 @@ dependencies = [
 
 [[package]]
 name = "num_enum"
-version = "0.5.11"
+version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1f646caf906c20226733ed5b1374287eb97e3c2a5c227ce668c1f2ce20ae57c9"
+checksum = "70bf6736f74634d299d00086f02986875b3c2d924781a6a2cb6c201e73da0ceb"
 dependencies = [
  "num_enum_derive",
 ]
 
 [[package]]
 name = "num_enum_derive"
-version = "0.5.11"
+version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dcbff9bc912032c62bf65ef1d5aea88983b420f4f839db1e9b0c281a25c9c799"
+checksum = "56ea360eafe1022f7cc56cd7b869ed57330fb2453d0c7831d99b74c65d2f5597"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 1.0.109",
+ "syn 2.0.100",
 ]
 
 [[package]]
@@ -1367,7 +1362,6 @@ dependencies = [
  "lib-garble-rs",
  "log",
  "pallet-ocw-circuits",
- "pallet-timestamp",
  "pallet-tx-validation",
  "parity-scale-codec",
  "rand",
@@ -1379,50 +1373,6 @@ dependencies = [
  "sp-core",
  "sp-runtime",
  "sp-std",
-]
-
-[[package]]
-name = "pallet-recovery"
-version = "4.0.0-dev"
-source = "git+https://github.com/paritytech/substrate.git?branch=polkadot-v0.9.39#8c4b84520cee2d7de53cc33cb67605ce4efefba8"
-dependencies = [
- "frame-support",
- "frame-system",
- "parity-scale-codec",
- "scale-info",
- "sp-io",
- "sp-runtime",
- "sp-std",
-]
-
-[[package]]
-name = "pallet-recovery-nfc"
-version = "4.0.0-dev"
-dependencies = [
- "frame-support",
- "frame-system",
- "log",
- "pallet-recovery",
- "parity-scale-codec",
- "scale-info",
- "sgx_tstd",
- "sp-std",
-]
-
-[[package]]
-name = "pallet-timestamp"
-version = "4.0.0-dev"
-source = "git+https://github.com/paritytech/substrate.git?branch=polkadot-v0.9.39#8c4b84520cee2d7de53cc33cb67605ce4efefba8"
-dependencies = [
- "frame-support",
- "frame-system",
- "log",
- "parity-scale-codec",
- "scale-info",
- "sp-inherents",
- "sp-runtime",
- "sp-std",
- "sp-timestamp",
 ]
 
 [[package]]
@@ -1532,39 +1482,18 @@ dependencies = [
 
 [[package]]
 name = "proc-macro2"
-version = "1.0.63"
+version = "1.0.94"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7b368fba921b0dce7e60f5e04ec15e565b3303972b42bcfde1d0713b881959eb"
+checksum = "a31971752e70b8b2686d7e46ec17fb38dad4051d94024c88df49b667caea9c84"
 dependencies = [
  "unicode-ident",
 ]
 
 [[package]]
-name = "prost"
-version = "0.11.3"
-source = "git+https://github.com/tokio-rs/prost.git?rev=a7aac766e362d87de5180774c124829e198f2b4c#a7aac766e362d87de5180774c124829e198f2b4c"
-dependencies = [
- "bytes",
- "prost-derive",
-]
-
-[[package]]
-name = "prost-derive"
-version = "0.11.2"
-source = "git+https://github.com/tokio-rs/prost.git?rev=a7aac766e362d87de5180774c124829e198f2b4c#a7aac766e362d87de5180774c124829e198f2b4c"
-dependencies = [
- "anyhow",
- "itertools",
- "proc-macro2",
- "quote",
- "syn 1.0.109",
-]
-
-[[package]]
 name = "quote"
-version = "1.0.29"
+version = "1.0.39"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "573015e8ab27661678357f27dc26460738fd2b6c86e46f386fde94cb5d913105"
+checksum = "c1f1914ce909e1658d9907913b4b91947430c7d9be598b15a1912935b8c04801"
 dependencies = [
  "proc-macro2",
 ]
@@ -1636,7 +1565,7 @@ checksum = "a930b010d9effee5834317bb7ff406b76af7724348fd572b38705b4bd099fa92"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.23",
+ "syn 2.0.100",
 ]
 
 [[package]]
@@ -1841,7 +1770,7 @@ checksum = "5dd83d6dde2b6b2d466e14d9d1acce8816dedee94f735eac6395808b3483c6d6"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.23",
+ "syn 2.0.100",
 ]
 
 [[package]]
@@ -1879,7 +1808,7 @@ dependencies = [
  "darling",
  "proc-macro2",
  "quote",
- "syn 2.0.23",
+ "syn 2.0.100",
 ]
 
 [[package]]
@@ -2333,17 +2262,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "sp-timestamp"
-version = "4.0.0-dev"
-source = "git+https://github.com/paritytech/substrate.git?branch=polkadot-v0.9.39#8c4b84520cee2d7de53cc33cb67605ce4efefba8"
-dependencies = [
- "parity-scale-codec",
- "sp-inherents",
- "sp-runtime",
- "sp-std",
-]
-
-[[package]]
 name = "sp-tracing"
 version = "6.0.0"
 source = "git+https://github.com/paritytech/substrate.git?branch=polkadot-v0.9.39#8c4b84520cee2d7de53cc33cb67605ce4efefba8"
@@ -2453,9 +2371,9 @@ dependencies = [
 
 [[package]]
 name = "syn"
-version = "2.0.23"
+version = "2.0.100"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "59fb7d6d8281a51045d62b8eb3a7d1ce347b76f312af50cd3dc0af39c87c1737"
+checksum = "b09a44accad81e1ba1cd74a32461ba89dee89095ba17b32f5d03683b1b1fc2a0"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -2473,7 +2391,6 @@ name = "template"
 version = "1.0.0"
 dependencies = [
  "pallet-ocw-garble",
- "pallet-recovery-nfc",
  "sgx_alloc",
  "sgx_libc",
  "sgx_serialize",
@@ -2716,13 +2633,8 @@ checksum = "ce36e65b0d2999d2aafac989fb249189a141aee1f53c612c1f37d72631959f69"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.23",
+ "syn 2.0.100",
 ]
-
-[[patch.unused]]
-name = "env_logger"
-version = "0.9.0"
-source = "git+https://github.com/integritee-network/env_logger-sgx#55745829b2ae8a77f0915af3671ec8a9a00cace9"
 
 [[patch.unused]]
 name = "sgx_crypto_helper"
@@ -2753,3 +2665,8 @@ source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6
 name = "sgx_tunittest"
 version = "1.1.6"
 source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6-testing#9c1bbd52f188f600a212b57c916124245da1b7fd"
+
+[[patch.unused]]
+name = "env_logger"
+version = "0.9.0"
+source = "git+https://github.com/integritee-network/env_logger-sgx#55745829b2ae8a77f0915af3671ec8a9a00cace9"
