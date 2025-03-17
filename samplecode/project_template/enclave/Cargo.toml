@@ -46,7 +46,7 @@ default = []
 
 [dependencies]
 lib-garble-rs = { path = "../../../../lib-garble-rs", default-features = false, features = [
-    "sgx",
+    "alloc",
 ] }
 # ADDED:
 # The sp-io patch MUST activate sp-io/sgx else it FAIL with:
@@ -70,7 +70,12 @@ lib-garble-rs = { path = "../../../../lib-garble-rs", default-features = false, 
 #     ... required by package `template v1.0.0 (/home/pratn/Documents/interstellar/rs-common/tests_sgx/samplecode/project_template/enclave)`
 # versions that meet the requirements `^7` are: 7.0.0
 # the package `template` depends on `sp-io`, with features: `sgx` but `sp-io` does not have these features.
-sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "d3b6371613e2470ab5680c1bc7b68cd85cc2773b", default-features = false, features = [
+#
+# To get the correct tag: eg https://github.com/integritee-network/worker/tree/v0.16.1/core-primitives/substrate-sgx/sp-io
+# - use the "git tag" matching the last "merge upstream"
+# - copy the full SHA matching the commit of this crate at this git tag
+# - Then you MUST find/replace the old tag in old the Cargo.toml
+sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "882e3942461dcf0cce135128820d998a790314e0", default-features = false, features = [
     "sgx",
 ] }
 # Same issues from this dep:
@@ -87,7 +92,7 @@ sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker
 #     |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ missing `Pair` in implementation
 sp-application-crypto = { default-features = false, features = [
     "full_crypto",
-], git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v0.9.39" }
+], git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v0.9.42" }
 
 [target.'cfg(not(target_env = "sgx"))'.dependencies] # You can remove what you don't need, except types and tstd
 sgx_types = { git = "https://github.com/apache/teaclave-sgx-sdk.git", rev = "v1.1.6" }
@@ -112,16 +117,23 @@ sgx_libc = { git = "https://github.com/apache/teaclave-sgx-sdk.git", rev = "v1.1
 # NOTE: update in tests_sgx/samplecode/project_template/app/Cargo.toml if you change those!
 [patch.crates-io]
 env_logger = { git = "https://github.com/integritee-network/env_logger-sgx" }
-getrandom = { git = "https://github.com/integritee-network/getrandom-sgx", branch = "update-v2.3" }
+getrandom = { git = "https://github.com/integritee-network/getrandom-sgx", branch = "update-v2.3", default-features = false }
 log = { git = "https://github.com/integritee-network/log-sgx" }
+# image = { path = "../../../../../image/" }
 
 [patch."https://github.com/mesalock-linux/log-sgx"]
 log = { git = "https://github.com/integritee-network/log-sgx" }
 
 [patch."https://github.com/paritytech/substrate"]
-sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "d3b6371613e2470ab5680c1bc7b68cd85cc2773b" }
+sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "882e3942461dcf0cce135128820d998a790314e0" }
 [patch."https://github.com/paritytech/substrate.git"]
-sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "d3b6371613e2470ab5680c1bc7b68cd85cc2773b" }
+sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "882e3942461dcf0cce135128820d998a790314e0" }
+
+# [patch."https://github.com/Interstellar-Network/imageproc.git"]
+# imageproc = { path = "../../../../../imageproc/" }
+#
+# [patch."https://github.com/Interstellar-Network/image.git"]
+# image = { path = "../../../../../image/" }
 
 #[patch."https://github.com/integritee-network/frontier"]
 #pallet-evm = { path = "../../frontier/frame/evm"}
