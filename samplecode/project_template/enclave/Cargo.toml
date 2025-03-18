@@ -69,7 +69,7 @@ pallet-ocw-garble = { path = "../../../../pallets/ocw-garble", default-features 
 #     ... required by package `template v1.0.0 (/home/pratn/Documents/interstellar/rs-common/tests_sgx/samplecode/project_template/enclave)`
 # versions that meet the requirements `^7` are: 7.0.0
 # the package `template` depends on `sp-io`, with features: `sgx` but `sp-io` does not have these features.
-sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "d3b6371613e2470ab5680c1bc7b68cd85cc2773b", default-features = false, features = ["sgx"] }
+sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "882e3942461dcf0cce135128820d998a790314e0", default-features = false, features = ["sgx"] }
 # Same issues from this dep:
 # We MUST enable "sp-application-crypto/full_crypto; it is normally done by sp-io but only for "std"
 # So we add a "fake" dep to "sp-application-crypto" here
@@ -82,7 +82,7 @@ sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker
 #     |
 # 274 |         impl $crate::CryptoType for Public {}
 #     |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ missing `Pair` in implementation
-sp-application-crypto = { default-features = false, features = ["full_crypto"], git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v0.9.39" }
+sp-application-crypto = { default-features = false, features = ["full_crypto"], git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v0.9.42" }
 
 [target.'cfg(not(target_env = "sgx"))'.dependencies] # You can remove what you don't need, except types and tstd
 sgx_types = { git = "https://github.com/apache/teaclave-sgx-sdk.git", rev = "v1.1.6" }
@@ -107,14 +107,29 @@ sgx_libc = { git = "https://github.com/apache/teaclave-sgx-sdk.git", rev = "v1.1
 env_logger = { git = "https://github.com/integritee-network/env_logger-sgx" }
 getrandom = { git = "https://github.com/integritee-network/getrandom-sgx", branch = "update-v2.3" }
 log = { git = "https://github.com/integritee-network/log-sgx" }
+image = { path = "../../../../../image/" }
 
 [patch."https://github.com/mesalock-linux/log-sgx"]
 log = { git = "https://github.com/integritee-network/log-sgx" }
 
 [patch."https://github.com/paritytech/substrate"]
-sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "d3b6371613e2470ab5680c1bc7b68cd85cc2773b" }
+sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "882e3942461dcf0cce135128820d998a790314e0" }
 [patch."https://github.com/paritytech/substrate.git"]
-sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "d3b6371613e2470ab5680c1bc7b68cd85cc2773b" }
+sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "882e3942461dcf0cce135128820d998a790314e0" }
+
+[patch."ssh://git@github.com/Interstellar-Network/lib-garble-rs-internal.git"]
+lib-garble-rs = { path = "../../../../../lib-garble-rs/lib-garble-rs/" }
+
+[patch."ssh://git@github.com/Interstellar-Network/rs-common-internal.git"]
+interstellar-http-client = { path = "../../../../../rs-common/http-client/" }
+tests-utils = { path = "../../../../../rs-common/tests_utils/" }
+interstellar-ipfs-client = { path = "../../../../../rs-common/ipfs-client-http-req/" }
+
+[patch."https://github.com/Interstellar-Network/imageproc.git"]
+imageproc = { path = "../../../../../imageproc/" }
+
+[patch."https://github.com/Interstellar-Network/image.git"]
+image = { path = "../../../../../image/" }
 
 #[patch."https://github.com/integritee-network/frontier"]
 #pallet-evm = { path = "../../frontier/frame/evm"}
