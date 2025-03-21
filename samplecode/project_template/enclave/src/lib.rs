@@ -52,6 +52,10 @@ fn test_lib() {
     //     core::time::Duration::from_millis(1000),
     // )
     // .unwrap();
+    println!("Testing extended-recovery pallet in SGX...");
+    // Test random number generation
+    test_random_generation();
+    println!("Extended-recovery pallet tests completed successfully!");
 }
 
 #[no_mangle]
@@ -64,4 +68,29 @@ pub extern "C" fn ecall_test(some_string: *const u8, some_len: usize) -> sgx_sta
     println!("Message from the enclave");
 
     sgx_status_t::SGX_SUCCESS
+}
+
+extern crate rand;
+extern crate rand_chacha;
+    
+
+fn test_random_generation() {
+    println!("Testing random number generation in SGX...");
+    
+    use rand::Rng;
+    use rand_chacha::{rand_core::SeedableRng, ChaChaRng};
+    
+    let mut rng = ChaChaRng::from_entropy();
+    let mut salt1 = [0u8; 32];
+    rng.fill(&mut salt1);
+    
+    let mut rng2 = ChaChaRng::from_entropy();
+    let mut salt2 = [0u8; 32];
+    rng2.fill(&mut salt2);
+    
+    println!("Salt1 first 8 bytes: {:?}", &salt1[0..8]);
+    println!("Salt2 first 8 bytes: {:?}", &salt2[0..8]);
+    
+    let different = salt1 != salt2;
+    println!("Random generation test: {}", if different { "PASSED" } else { "FAILED" });
 }

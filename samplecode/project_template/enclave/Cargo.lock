@@ -1331,6 +1331,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "pallet-extended-recovery"
+version = "4.0.0-dev"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "getrandom",
+ "log",
+ "pallet-recovery",
+ "parity-scale-codec",
+ "rand",
+ "rand_chacha",
+ "scale-info",
+ "sgx_tstd",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
 name = "pallet-ocw-circuits"
 version = "6.0.0"
 dependencies = [
@@ -1371,6 +1390,20 @@ dependencies = [
  "serde_json",
  "sgx_tstd",
  "sp-core",
+ "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
+name = "pallet-recovery"
+version = "4.0.0-dev"
+source = "git+https://github.com/paritytech/substrate.git?branch=polkadot-v0.9.39#8c4b84520cee2d7de53cc33cb67605ce4efefba8"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "parity-scale-codec",
+ "scale-info",
+ "sp-io",
  "sp-runtime",
  "sp-std",
 ]
@@ -2390,7 +2423,10 @@ checksum = "55937e1799185b12863d447f42597ed69d9928686b8d88a1df17376a097d8369"
 name = "template"
 version = "1.0.0"
 dependencies = [
+ "pallet-extended-recovery",
  "pallet-ocw-garble",
+ "rand",
+ "rand_chacha",
  "sgx_alloc",
  "sgx_libc",
  "sgx_serialize",
@@ -2637,6 +2673,11 @@ dependencies = [
 ]
 
 [[patch.unused]]
+name = "env_logger"
+version = "0.9.0"
+source = "git+https://github.com/integritee-network/env_logger-sgx#55745829b2ae8a77f0915af3671ec8a9a00cace9"
+
+[[patch.unused]]
 name = "sgx_crypto_helper"
 version = "1.1.6"
 source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6-testing#9c1bbd52f188f600a212b57c916124245da1b7fd"
@@ -2665,8 +2706,3 @@ source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6
 name = "sgx_tunittest"
 version = "1.1.6"
 source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6-testing#9c1bbd52f188f600a212b57c916124245da1b7fd"
-
-[[patch.unused]]
-name = "env_logger"
-version = "0.9.0"
-source = "git+https://github.com/integritee-network/env_logger-sgx#55745829b2ae8a77f0915af3671ec8a9a00cace9"
