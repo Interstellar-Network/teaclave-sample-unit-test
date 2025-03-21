@@ -83,7 +83,7 @@ fn test_random_generation() {
     let mut rng = ChaChaRng::from_entropy();
     let mut salt1 = [0u8; 32];
     rng.fill(&mut salt1);
-    
+    0
     let mut rng2 = ChaChaRng::from_entropy();
     let mut salt2 = [0u8; 32];
     rng2.fill(&mut salt2);
