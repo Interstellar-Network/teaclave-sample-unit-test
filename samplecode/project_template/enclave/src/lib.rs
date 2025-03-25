@@ -29,31 +29,8 @@ use sgx_types::*;
 use std::io::{self, Write};
 use std::slice;
 
-// TODO? Ideally we want to run some basic tests, but it would require more work:
-// - AT LEAST: add some missing "import" in Enclave.edl
-// - resolve "undefined reference" errors for each of those
-// - FIX runtime error: [-] ECALL Enclave Failed SGX_ERROR_STACK_OVERRUN!
 fn test_lib() {
-    // This WOULD FAIL, cf docstring if this fn
-    // let response = http_grpc_client::sp_offchain_fetch_from_remote_grpc_web(
-    //     None,
-    //     "https://www.google.com",
-    //     &http_grpc_client::RequestMethod::Get,
-    //     None,
-    //     core::time::Duration::from_millis(1000),
-    // )
-    // .unwrap();
-
-    // let response = http_grpc_client::http_req_fetch_from_remote_grpc_web(
-    //     None,
-    //     "http://postman-echo.com/get?hello=world",
-    //     &http_grpc_client::RequestMethod::Get,
-    //     None,
-    //     core::time::Duration::from_millis(1000),
-    // )
-    // .unwrap();
     println!("Testing extended-recovery pallet in SGX...");
-    // Test random number generation
     test_random_generation();
     println!("Extended-recovery pallet tests completed successfully!");
 }
@@ -70,23 +47,38 @@ pub extern "C" fn ecall_test(some_string: *const u8, some_len: usize) -> sgx_sta
     sgx_status_t::SGX_SUCCESS
 }
 
-extern crate pallet_extended_recovery;
+extern crate pallet_token_extended_recovery;
 
 fn test_random_generation() {
     println!("Testing extended-recovery salt generation...");
-    
-    // Create two different mock accounts
-    let account1_bytes = [1u8; 32];
-    let account2_bytes = [2u8; 32];
-    
-    // Generate salts using the same function as the pallet
-    let salt1 = pallet_extended_recovery::crypto_utils::generate_account_salt(&account1_bytes);
-    let salt2 = pallet_extended_recovery::crypto_utils::generate_account_salt(&account2_bytes);
-    
-    // Verify the salts are different
-    println!("Salt1 first 8 bytes: {:?}", &salt1[0..8]);
-    println!("Salt2 first 8 bytes: {:?}", &salt2[0..8]);
-    
-    let different = salt1 != salt2;
-    println!("Salt generation test: {}", if different { "PASSED" } else { "FAILED" });
+        // Test 1: Generate salt and verify length
+        let sgx_salt = pallet_token_extended_recovery::sgx_util::generate_salt();
+        println!("SGX Salt: {:?}", &sgx_salt[..8]);
+        let salt_length_ok = sgx_salt.len() == 16;
+        println!("SGX Salt length test (16 bytes): {}", if salt_length_ok { "PASSED" } else { "FAILED" });
+
+        // Test 2: Generate two salts and check they’re different
+        let sgx_salt2 = pallet_token_extended_recovery::sgx_util::generate_salt();
+        println!("SGX Salt2: {:?}", &sgx_salt2[..8]);
+        let salts_different = sgx_salt != sgx_salt2;
+        println!("SGX Salt uniqueness test: {}", if salts_different { "PASSED" } else { "FAILED" });
+
+        // Test 3: Generate token and verify outputs
+        let skcd_cid = b"test_cid";
+        let tx_msg = b"test_message";
+        let digits = b"1234";
+        match pallet_token_extended_recovery::sgx_util::generate_token(skcd_cid, tx_msg, digits) {
+            Ok((token_id, key, salt)) => {
+                println!("Token ID (first 8 bytes): {:?}", &token_id[..8]);
+                println!("Key (first 8 bytes): {:?}", &key[..8]);
+                println!("Salt (first 8 bytes): {:?}", &salt[..8]);
+                let token_id_len_ok = token_id.len() == 32; // Blake2_256 produces 32 bytes
+                let key_len_ok = key.len() == 32;
+                let salt_len_ok = salt.len() == 16;
+                println!("Token ID length test (32 bytes): {}", if token_id_len_ok { "PASSED" } else { "FAILED" });
+                println!("Key length test (32 bytes): {}", if key_len_ok { "PASSED" } else { "FAILED" });
+                println!("Salt length test (16 bytes): {}", if salt_len_ok { "PASSED" } else { "FAILED" });
+            }
+            Err(()) => println!("SGX Token generation test: FAILED (generation error)"),
+        }
 }
