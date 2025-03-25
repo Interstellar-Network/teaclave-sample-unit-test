@@ -70,27 +70,23 @@ pub extern "C" fn ecall_test(some_string: *const u8, some_len: usize) -> sgx_sta
     sgx_status_t::SGX_SUCCESS
 }
 
-extern crate rand;
-extern crate rand_chacha;
-    
+extern crate pallet_extended_recovery;
 
 fn test_random_generation() {
-    println!("Testing random number generation in SGX...");
+    println!("Testing extended-recovery salt generation...");
     
-    use rand::Rng;
-    use rand_chacha::{rand_core::SeedableRng, ChaChaRng};
+    // Create two different mock accounts
+    let account1_bytes = [1u8; 32];
+    let account2_bytes = [2u8; 32];
     
-    let mut rng = ChaChaRng::from_entropy();
-    let mut salt1 = [0u8; 32];
-    rng.fill(&mut salt1);
+    // Generate salts using the same function as the pallet
+    let salt1 = pallet_extended_recovery::crypto_utils::generate_account_salt(&account1_bytes);
+    let salt2 = pallet_extended_recovery::crypto_utils::generate_account_salt(&account2_bytes);
     
-    let mut rng2 = ChaChaRng::from_entropy();
-    let mut salt2 = [0u8; 32];
-    rng2.fill(&mut salt2);
-    
+    // Verify the salts are different
     println!("Salt1 first 8 bytes: {:?}", &salt1[0..8]);
     println!("Salt2 first 8 bytes: {:?}", &salt2[0..8]);
     
     let different = salt1 != salt2;
-    println!("Random generation test: {}", if different { "PASSED" } else { "FAILED" });
+    println!("Salt generation test: {}", if different { "PASSED" } else { "FAILED" });
 }
