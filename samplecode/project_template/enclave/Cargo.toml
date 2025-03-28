@@ -45,12 +45,12 @@ crate-type = ["staticlib"]
 default = []
 
 [dependencies]
-interstellar-http-client = { path = "../../../../http-client", default-features = false, features = [
+interstellar-http-client-old = { path = "../../../../http-client-old", default-features = false, features = [
     "sgx",
     "with_http_req_sgx",
     "with_http_req",
 ] }
-interstellar-ipfs-client = { path = "../../../../ipfs-client-http-req", default-features = false, features = [
+interstellar-ipfs-client-old = { path = "../../../../ipfs-client-http-req-old", default-features = false, features = [
     "sgx",
     "with_http_req",
 ] }

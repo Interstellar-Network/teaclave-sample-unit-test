@@ -24,12 +24,15 @@ extern crate sgx_types;
 #[cfg(not(target_env = "sgx"))]
 #[macro_use]
 extern crate sgx_tstd as std;
-extern crate interstellar_http_client;
+extern crate interstellar_http_client_old;
 
 use sgx_types::*;
 use std::io::{self, Write};
 use std::slice;
 use std::string::ToString;
+
+// COMPAT
+use interstellar_http_client_old as interstellar_http_client;
 
 use interstellar_http_client::SendRequest;
 
