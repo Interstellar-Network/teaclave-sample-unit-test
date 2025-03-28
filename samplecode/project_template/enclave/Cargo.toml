@@ -107,7 +107,7 @@ sgx_libc = { git = "https://github.com/apache/teaclave-sgx-sdk.git", rev = "v1.1
 env_logger = { git = "https://github.com/integritee-network/env_logger-sgx" }
 getrandom = { git = "https://github.com/integritee-network/getrandom-sgx", branch = "update-v2.3" }
 log = { git = "https://github.com/integritee-network/log-sgx" }
-image = { path = "../../../../../image/" }
+# image = { path = "../../../../../image/" }
 
 [patch."https://github.com/mesalock-linux/log-sgx"]
 log = { git = "https://github.com/integritee-network/log-sgx" }
@@ -117,19 +117,21 @@ sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker
 [patch."https://github.com/paritytech/substrate.git"]
 sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "882e3942461dcf0cce135128820d998a790314e0" }
 
-[patch."ssh://git@github.com/Interstellar-Network/lib-garble-rs-internal.git"]
-lib-garble-rs = { path = "../../../../../lib-garble-rs/lib-garble-rs/" }
+# [patch."ssh://git@github.com/Interstellar-Network/lib-garble-rs-internal.git"]
+# lib-garble-rs = { path = "../../../../../lib-garble-rs/lib-garble-rs/" }
+#
+# [patch."ssh://git@github.com/Interstellar-Network/rs-common-internal.git"]
+# tests-utils = { path = "../../../../../rs-common/tests_utils/" }
+# interstellar-http-client-old = { path = "../../../../../rs-common/http-client-old/" }
+# interstellar-ipfs-client-old = { path = "../../../../../rs-common/ipfs-client-http-req-old/" }
+# interstellar-http-client-new = { path = "../../../../../rs-common/http-client-new/" }
+# interstellar-ipfs-client-new = { path = "../../../../../rs-common/ipfs-client-http-req-new/" }
 
-[patch."ssh://git@github.com/Interstellar-Network/rs-common-internal.git"]
-interstellar-http-client = { path = "../../../../../rs-common/http-client/" }
-tests-utils = { path = "../../../../../rs-common/tests_utils/" }
-interstellar-ipfs-client = { path = "../../../../../rs-common/ipfs-client-http-req/" }
-
-[patch."https://github.com/Interstellar-Network/imageproc.git"]
-imageproc = { path = "../../../../../imageproc/" }
-
-[patch."https://github.com/Interstellar-Network/image.git"]
-image = { path = "../../../../../image/" }
+# [patch."https://github.com/Interstellar-Network/imageproc.git"]
+# imageproc = { path = "../../../../../imageproc/" }
+#
+# [patch."https://github.com/Interstellar-Network/image.git"]
+# image = { path = "../../../../../image/" }
 
 #[patch."https://github.com/integritee-network/frontier"]
 #pallet-evm = { path = "../../frontier/frame/evm"}
