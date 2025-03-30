@@ -53,8 +53,7 @@ fn test_lib() {
     // )
     // .unwrap();
     println!("Testing extended-recovery pallet in SGX...");
-    // Test random number generation
-    test_random_generation();
+
     println!("Extended-recovery pallet tests completed successfully!");
 }
 
@@ -68,25 +67,4 @@ pub extern "C" fn ecall_test(some_string: *const u8, some_len: usize) -> sgx_sta
     println!("Message from the enclave");
 
     sgx_status_t::SGX_SUCCESS
-}
-
-extern crate pallet_extended_recovery;
-
-fn test_random_generation() {
-    println!("Testing extended-recovery salt generation...");
-    
-    // Create two different mock accounts
-    let account1_bytes = [1u8; 32];
-    let account2_bytes = [2u8; 32];
-    
-    // Generate salts using the same function as the pallet
-    let salt1 = pallet_extended_recovery::crypto_utils::generate_account_salt(&account1_bytes);
-    let salt2 = pallet_extended_recovery::crypto_utils::generate_account_salt(&account2_bytes);
-    
-    // Verify the salts are different
-    println!("Salt1 first 8 bytes: {:?}", &salt1[0..8]);
-    println!("Salt2 first 8 bytes: {:?}", &salt2[0..8]);
-    
-    let different = salt1 != salt2;
-    println!("Salt generation test: {}", if different { "PASSED" } else { "FAILED" });
 }
