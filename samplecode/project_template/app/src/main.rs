@@ -67,6 +67,7 @@ fn main() {
     let mut retval = sgx_status_t::SGX_SUCCESS;
 
     let result = unsafe {
+        println!("[-] ECALL BEFORE ecall_test");
         ecall_test(
             enclave.geteid(),
             &mut retval,

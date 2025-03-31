@@ -29,29 +29,12 @@ use sgx_types::*;
 use std::io::{self, Write};
 use std::slice;
 
-// TODO? Ideally we want to run some basic tests, but it would require more work:
-// - AT LEAST: add some missing "import" in Enclave.edl
-// - resolve "undefined reference" errors for each of those
-// - FIX runtime error: [-] ECALL Enclave Failed SGX_ERROR_STACK_OVERRUN!
 fn test_lib() {
-    // This WOULD FAIL, cf docstring if this fn
-    // let response = http_grpc_client::sp_offchain_fetch_from_remote_grpc_web(
-    //     None,
-    //     "https://www.google.com",
-    //     &http_grpc_client::RequestMethod::Get,
-    //     None,
-    //     core::time::Duration::from_millis(1000),
-    // )
-    // .unwrap();
-
-    // let response = http_grpc_client::http_req_fetch_from_remote_grpc_web(
-    //     None,
-    //     "http://postman-echo.com/get?hello=world",
-    //     &http_grpc_client::RequestMethod::Get,
-    //     None,
-    //     core::time::Duration::from_millis(1000),
-    // )
-    // .unwrap();
+    let garbled = lib_garble_rs::garble_skcd(include_bytes!(
+        "../../../../../lib-garble-rs/examples/data/result_display_message_120x52_2digits.postcard.bin"
+    ))
+    .unwrap();
+    println!("test_lib[1] : {:?}", garbled.get_display_config());
 }
 
 #[no_mangle]
