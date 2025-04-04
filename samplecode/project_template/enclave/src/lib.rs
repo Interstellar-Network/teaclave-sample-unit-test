@@ -33,7 +33,7 @@ use std::string::String;
 use std::vec::Vec;
 
 // Fetch PROXY_PALLET_ID and randomness
-use pallet_token_extended_recovery::{ PROXY_PALLET_ID, randomness, SgxRandomness };
+use pallet_token_extended_recovery::{ PROXY_PALLET_ID };
 
 #[cfg(feature = "sgx")]
 use sgx_trts::trts::rsgx_read_rand;
