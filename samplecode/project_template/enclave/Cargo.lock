@@ -1320,6 +1320,39 @@ dependencies = [
 ]
 
 [[package]]
+name = "pallet-balances"
+version = "4.0.0-dev"
+source = "git+https://github.com/paritytech/substrate.git?branch=polkadot-v0.9.39#8c4b84520cee2d7de53cc33cb67605ce4efefba8"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "log",
+ "parity-scale-codec",
+ "scale-info",
+ "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
+name = "pallet-nfc-recovery"
+version = "4.0.0-dev"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "getrandom",
+ "log",
+ "pallet-balances",
+ "pallet-recovery",
+ "parity-scale-codec",
+ "rand",
+ "rand_chacha",
+ "scale-info",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
 name = "pallet-ocw-circuits"
 version = "6.0.0"
 dependencies = [
@@ -2379,6 +2412,10 @@ checksum = "55937e1799185b12863d447f42597ed69d9928686b8d88a1df17376a097d8369"
 name = "template"
 version = "1.0.0"
 dependencies = [
+<<<<<<< HEAD
+=======
+ "pallet-nfc-recovery",
+>>>>>>> fc04a3d (updating changing nfc recovery pallet name)
  "pallet-ocw-garble",
  "sgx_alloc",
  "sgx_libc",
