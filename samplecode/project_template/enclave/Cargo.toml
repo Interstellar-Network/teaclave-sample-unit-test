@@ -46,7 +46,7 @@ default = []
 
 [dependencies]
 pallet-ocw-garble = { path = "../../../../pallets/ocw-garble", default-features = false, features = ["sgx"] }
-pallet-extended-recovery = { path = "../../../../pallets/extended-recovery", default-features = false,  features = ["sgx"] }
+pallet-extended-recovery = { path = "../../../../pallets/extended-recovery", default-features = false }
 # pallet-recovery-nfc = { path = "../../../../pallets/recovery-nfc", default-features = false, features = ["sgx"] }
 # ADDED:
 # The sp-io patch MUST activate sp-io/sgx else it FAIL with:
@@ -84,9 +84,6 @@ sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker
 # 274 |         impl $crate::CryptoType for Public {}
 #     |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ missing `Pair` in implementation
 sp-application-crypto = { default-features = false, features = ["full_crypto"], git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v0.9.39" }
-
-rand = { version = "0.8", default-features = false }
-rand_chacha = { version = "0.3", default-features = false }
 
 [target.'cfg(not(target_env = "sgx"))'.dependencies] # You can remove what you don't need, except types and tstd
 sgx_types = { git = "https://github.com/apache/teaclave-sgx-sdk.git", rev = "v1.1.6" }
