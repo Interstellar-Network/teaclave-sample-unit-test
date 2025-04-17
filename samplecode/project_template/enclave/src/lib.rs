@@ -52,9 +52,6 @@ fn test_lib() {
     //     core::time::Duration::from_millis(1000),
     // )
     // .unwrap();
-    println!("Testing extended-recovery pallet in SGX...");
-
-    println!("Extended-recovery pallet tests completed successfully!");
 }
 
 #[no_mangle]
