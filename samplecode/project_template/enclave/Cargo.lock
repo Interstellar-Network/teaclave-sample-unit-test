@@ -2412,10 +2412,7 @@ checksum = "55937e1799185b12863d447f42597ed69d9928686b8d88a1df17376a097d8369"
 name = "template"
 version = "1.0.0"
 dependencies = [
-<<<<<<< HEAD
-=======
  "pallet-nfc-recovery",
->>>>>>> fc04a3d (updating changing nfc recovery pallet name)
  "pallet-ocw-garble",
  "sgx_alloc",
  "sgx_libc",
