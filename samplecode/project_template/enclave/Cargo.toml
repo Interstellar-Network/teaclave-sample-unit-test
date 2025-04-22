@@ -46,6 +46,7 @@ default = []
 
 [dependencies]
 pallet-ocw-garble = { path = "../../../../pallets/ocw-garble", default-features = false, features = ["sgx"] }
+pallet-nfc-recovery = { path = "../../../../pallets/nfc-recovery", default-features = false }
 # pallet-recovery-nfc = { path = "../../../../pallets/recovery-nfc", default-features = false, features = ["sgx"] }
 # ADDED:
 # The sp-io patch MUST activate sp-io/sgx else it FAIL with:
