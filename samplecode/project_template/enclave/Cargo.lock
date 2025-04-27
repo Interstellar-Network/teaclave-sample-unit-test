@@ -838,7 +838,7 @@ version = "0.2.3"
 source = "git+https://github.com/integritee-network/getrandom-sgx?branch=update-v2.3#0a4af01fe1df0e6200192e7a709fd18da413466e"
 dependencies = [
  "cfg-if",
- "sgx_libc 1.1.3",
+ "sgx_libc",
  "sgx_trts",
  "sgx_tstd",
 ]
@@ -1407,6 +1407,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "pallet-nfc-recovery"
+version = "4.0.0-dev"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "log",
+ "pallet-balances",
+ "pallet-recovery",
+ "parity-scale-codec",
+ "rand",
+ "rand_chacha",
+ "scale-info",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
 name = "pallet-ocw-circuits"
 version = "6.0.0"
 dependencies = [
@@ -1504,6 +1522,8 @@ dependencies = [
  "rand",
  "rand_chacha",
  "scale-info",
+ "serde",
+ "serde_json",
  "sgx_tstd",
  "sp-core",
  "sp-io",
@@ -1972,7 +1992,7 @@ source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6
 dependencies = [
  "cc",
  "sgx_build_helper",
- "sgx_libc 1.1.6",
+ "sgx_libc",
 ]
 
 [[package]]
@@ -1984,14 +2004,6 @@ source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6
 name = "sgx_demangle"
 version = "1.1.6"
 source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6-testing#9c1bbd52f188f600a212b57c916124245da1b7fd"
-
-[[package]]
-name = "sgx_libc"
-version = "1.1.3"
-source = "git+https://github.com/apache/teaclave-sgx-sdk.git?rev=v1.1.3#a6a172e652b4db4eaa17e4faa078fda8922abdd0"
-dependencies = [
- "sgx_types",
-]
 
 [[package]]
 name = "sgx_libc"
@@ -2031,7 +2043,7 @@ name = "sgx_trts"
 version = "1.1.6"
 source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6-testing#9c1bbd52f188f600a212b57c916124245da1b7fd"
 dependencies = [
- "sgx_libc 1.1.6",
+ "sgx_libc",
  "sgx_types",
 ]
 
@@ -2063,7 +2075,7 @@ dependencies = [
  "sgx_alloc",
  "sgx_backtrace_sys",
  "sgx_demangle",
- "sgx_libc 1.1.6",
+ "sgx_libc",
  "sgx_tprotected_fs",
  "sgx_trts",
  "sgx_types",
@@ -2558,12 +2570,13 @@ checksum = "55937e1799185b12863d447f42597ed69d9928686b8d88a1df17376a097d8369"
 name = "template"
 version = "1.0.0"
 dependencies = [
+ "pallet-nfc-recovery",
  "pallet-ocw-garble",
  "pallet-token-recovery",
  "rand",
  "rand_chacha",
  "sgx_alloc",
- "sgx_libc 1.1.6",
+ "sgx_libc",
  "sgx_serialize",
  "sgx_tcrypto",
  "sgx_trts",
