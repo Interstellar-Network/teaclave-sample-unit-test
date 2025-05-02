@@ -26,7 +26,7 @@ extern crate sgx_types;
 extern crate sgx_tstd as std;
 
 use sgx_types::*;
-use std::io::{ self, Write };
+use std::io::{self, Write};
 use std::slice;
 
 // TODO? Ideally we want to run some basic tests, but it would require more work:
