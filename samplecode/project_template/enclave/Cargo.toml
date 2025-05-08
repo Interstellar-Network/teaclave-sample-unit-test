@@ -77,7 +77,7 @@ interstellar-ipfs-client-old = { path = "../../../../ipfs-client-http-req-old", 
 #     ... required by package `template v1.0.0 (/home/pratn/Documents/interstellar/rs-common/tests_sgx/samplecode/project_template/enclave)`
 # versions that meet the requirements `^7` are: 7.0.0
 # the package `template` depends on `sp-io`, with features: `sgx` but `sp-io` does not have these features.
-sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "d3b6371613e2470ab5680c1bc7b68cd85cc2773b", default-features = false, features = [
+sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "882e3942461dcf0cce135128820d998a790314e0", default-features = false, features = [
     "sgx",
 ] }
 # Same issues from this dep:
@@ -94,7 +94,7 @@ sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker
 #     |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ missing `Pair` in implementation
 sp-application-crypto = { default-features = false, features = [
     "full_crypto",
-], git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v0.9.39" }
+], git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v0.9.42" }
 
 [target.'cfg(not(target_env = "sgx"))'.dependencies] # You can remove what you don't need, except types and tstd
 sgx_types = { git = "https://github.com/apache/teaclave-sgx-sdk.git", rev = "v1.1.6" }
@@ -108,55 +108,67 @@ sgx_serialize = { git = "https://github.com/apache/teaclave-sgx-sdk.git", rev = 
 sgx_alloc = { git = "https://github.com/apache/teaclave-sgx-sdk.git", rev = "v1.1.6" }
 sgx_libc = { git = "https://github.com/apache/teaclave-sgx-sdk.git", rev = "v1.1.6" }
 
+# MUST MATCH patch in app/
+# See https://github.com/integritee-network/worker/commits/master/core-primitives/substrate-sgx/sp-io/Cargo.toml for the correct rev to use
+[patch."https://github.com/paritytech/substrate"]
+sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "882e3942461dcf0cce135128820d998a790314e0" }
+[patch."https://github.com/paritytech/substrate.git"]
+sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "882e3942461dcf0cce135128820d998a790314e0" }
+
 ################################################################################
-# patches below are copy-pasted(and adapted) from https://github.com/integritee-network/worker/blob/b54c825fb13fe99f77fe549798a6c63853d81c34/enclave-runtime/Cargo.toml#L137
-# adapted = local patches are rewritten to a git url
+# patches below are copy-pasted(and adapted) from https://github.com/integritee-network/worker/blob/839eda02432f08e733d96da878cb97738836e139/enclave-runtime/Cargo.toml#L148 adapted = local patches are rewritten to a git url
+# EXCEPT sp-io b/c in the linked Cargo.toml, it is using `path`
 #
 # NOTE: it COULD(and probably CAN) compile without those, but we are interested in making our lib
 # compile with integritee teaclave-flavored NOT just standard teaclave
 # and https://github.com/integritee-network/worker/blob/master/core-primitives/substrate-sgx/sp-io/Cargo.toml
 #
 # NOTE: update in tests_sgx/samplecode/project_template/app/Cargo.toml if you change those!
+
 [patch.crates-io]
 env_logger = { git = "https://github.com/integritee-network/env_logger-sgx" }
 getrandom = { git = "https://github.com/integritee-network/getrandom-sgx", branch = "update-v2.3" }
 log = { git = "https://github.com/integritee-network/log-sgx" }
+ring = { git = "https://github.com/betrusted-io/ring-xous", branch = "0.16.20-cleanup" }
 
 [patch."https://github.com/mesalock-linux/log-sgx"]
 log = { git = "https://github.com/integritee-network/log-sgx" }
 
-[patch."https://github.com/paritytech/substrate"]
-sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "d3b6371613e2470ab5680c1bc7b68cd85cc2773b" }
-[patch."https://github.com/paritytech/substrate.git"]
-sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "d3b6371613e2470ab5680c1bc7b68cd85cc2773b" }
-
-#[patch."https://github.com/integritee-network/frontier"]
-#pallet-evm = { path = "../../frontier/frame/evm"}
+# [patch."https://github.com/paritytech/substrate"]
+# sp-io = { path = "../core-primitives/substrate-sgx/sp-io" }
 
 [patch."https://github.com/apache/teaclave-sgx-sdk.git"]
-sgx_alloc = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_crypto_helper = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_libc = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_rand = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_serialize = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_serialize_derive = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_serialize_derive_internals = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_tcrypto = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_tcrypto_helper = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_trts = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_tse = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_tseal = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_tstd = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_tunittest = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_types = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
+sgx_alloc = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_crypto_helper = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_libc = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_rand = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_serialize = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_serialize_derive = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_serialize_derive_internals = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_tcrypto = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_tcrypto_helper = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_trts = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_tse = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_tseal = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_tstd = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_tunittest = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_types = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
 
-#[patch."https://github.com/scs/substrate-api-client"]
-#substrate-api-client = { path = "../../../scs/substrate-api-client" }
+#[patch."https://github.com/integritee-network/parachain"]
+#integritee-runtime = { path = "../../parachain/polkadot-parachains/integritee-runtime"}
+#parachains-common = { path = "../../parachain/polkadot-parachains/common"}
 
 #[patch."https://github.com/integritee-network/pallets.git"]
-#pallet-parentchain = { path = "../../pallets/parentchain" }
-#itp-types = {  path = "../../pallets/primitives/types" }
-#itp-utils = {  path = "../../pallets/primitives/utils" }
-
-#[patch."https://github.com/integritee-network/http_req"]
-#http_req-sgx = {  package = "http_req", path = '../../http_req' }
+#pallet-claims = { git = "https://github.com/integritee-network//pallets", branch = "ab/parentchian-set-timestamp" }
+#pallet-enclave-bridge = { git = "https://github.com/integritee-network//pallets", branch = "ab/parentchian-set-timestamp" }
+#pallet-teerex = { git = "https://github.com/integritee-network//pallets", branch = "ab/parentchian-set-timestamp" }
+#pallet-sidechain = { git = "https://github.com/integritee-network//pallets", branch = "ab/parentchian-set-timestamp" }
+#pallet-parentchain = { git = "https://github.com/integritee-network//pallets", branch = "ab/parentchian-set-timestamp" }
+#sgx-verify = { git = "https://github.com/integritee-network//pallets", branch = "ab/parentchian-set-timestamp" }
+#pallet-teeracle = { git = "https://github.com/integritee-network//pallets", branch = "ab/parentchian-set-timestamp" }
+#test-utils = { git = "https://github.com/integritee-network//pallets", branch = "ab/parentchian-set-timestamp" }
+#claims-primitives = { git = "https://github.com/integritee-network//pallets", branch = "ab/parentchian-set-timestamp" }
+#enclave-bridge-primitives = { git = "https://github.com/integritee-network//pallets", branch = "ab/parentchian-set-timestamp" }
+#teerex-primitives = { git = "https://github.com/integritee-network//pallets", branch = "ab/parentchian-set-timestamp" }
+#teeracle-primitives = { git = "https://github.com/integritee-network//pallets", branch = "ab/parentchian-set-timestamp" }
+#common-primitives = { git = "https://github.com/integritee-network//pallets", branch = "ab/parentchian-set-timestamp" }
