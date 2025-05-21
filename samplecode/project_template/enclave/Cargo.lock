@@ -1025,18 +1025,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "interstellar-common-traits"
-version = "0.1.0"
-dependencies = [
- "circuits-storage-common",
- "frame-support",
- "parity-scale-codec",
- "scale-info",
- "sp-runtime",
- "sp-std",
-]
-
-[[package]]
 name = "interstellar-http-client"
 version = "0.5.0"
 source = "git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=main#0272cab77323c02286599fe10a32e5175dbe09a0"
@@ -1405,24 +1393,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "pallet-account-manager"
-version = "4.0.0-dev"
-dependencies = [
- "frame-support",
- "frame-system",
- "interstellar-common-traits",
- "log",
- "pallet-balances",
- "pallet-proxy",
- "pallet-recovery",
- "parity-scale-codec",
- "scale-info",
- "sp-io",
- "sp-runtime",
- "sp-std",
-]
-
-[[package]]
 name = "pallet-balances"
 version = "4.0.0-dev"
 source = "git+https://github.com/paritytech/substrate.git?branch=polkadot-v0.9.39#8c4b84520cee2d7de53cc33cb67605ce4efefba8"
@@ -1442,12 +1412,9 @@ version = "4.0.0-dev"
 dependencies = [
  "frame-support",
  "frame-system",
- "interstellar-common-traits",
  "log",
- "pallet-account-manager",
  "pallet-balances",
- "pallet-proxy",
- "pallet-recovery",
+ "pallet-unify-recovery",
  "parity-scale-codec",
  "rand",
  "rand_chacha",
@@ -1465,7 +1432,6 @@ dependencies = [
  "circuits-storage-common",
  "frame-support",
  "frame-system",
- "interstellar-common-traits",
  "interstellar-ipfs-client",
  "log",
  "parity-scale-codec",
@@ -1485,7 +1451,6 @@ dependencies = [
  "frame-support",
  "frame-system",
  "hex",
- "interstellar-common-traits",
  "interstellar-http-client",
  "interstellar-ipfs-client",
  "lib-garble-rs",
@@ -1500,20 +1465,6 @@ dependencies = [
  "serde_json",
  "sgx_tstd",
  "sp-core",
- "sp-runtime",
- "sp-std",
-]
-
-[[package]]
-name = "pallet-proxy"
-version = "4.0.0-dev"
-source = "git+https://github.com/paritytech/substrate.git?branch=polkadot-v0.9.39#8c4b84520cee2d7de53cc33cb67605ce4efefba8"
-dependencies = [
- "frame-support",
- "frame-system",
- "parity-scale-codec",
- "scale-info",
- "sp-io",
  "sp-runtime",
  "sp-std",
 ]
@@ -1559,18 +1510,14 @@ dependencies = [
  "frame-system",
  "getrandom",
  "hex",
- "interstellar-common-traits",
  "interstellar-http-client",
  "interstellar-ipfs-client",
  "lib-garble-rs",
  "log",
- "pallet-account-manager",
- "pallet-balances",
  "pallet-ocw-circuits",
- "pallet-proxy",
- "pallet-recovery",
  "pallet-timestamp",
  "pallet-tx-validation",
+ "pallet-unify-recovery",
  "parity-scale-codec",
  "rand",
  "rand_chacha",
@@ -1591,10 +1538,30 @@ version = "4.0.0-dev"
 dependencies = [
  "frame-support",
  "frame-system",
- "interstellar-common-traits",
  "log",
  "parity-scale-codec",
  "scale-info",
+ "sp-std",
+]
+
+[[package]]
+name = "pallet-unify-recovery"
+version = "4.0.0-dev"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "hex",
+ "log",
+ "pallet-balances",
+ "pallet-recovery",
+ "pallet-timestamp",
+ "parity-scale-codec",
+ "scale-info",
+ "serde",
+ "serde_json",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
  "sp-std",
 ]
 
@@ -2624,10 +2591,10 @@ checksum = "55937e1799185b12863d447f42597ed69d9928686b8d88a1df17376a097d8369"
 name = "template"
 version = "1.0.0"
 dependencies = [
- "pallet-account-manager",
  "pallet-nfc-recovery",
  "pallet-ocw-garble",
  "pallet-token-recovery",
+ "pallet-unify-recovery",
  "sgx_alloc",
  "sgx_libc",
  "sgx_serialize",
@@ -2884,11 +2851,6 @@ dependencies = [
 ]
 
 [[patch.unused]]
-name = "env_logger"
-version = "0.9.0"
-source = "git+https://github.com/integritee-network/env_logger-sgx#55745829b2ae8a77f0915af3671ec8a9a00cace9"
-
-[[patch.unused]]
 name = "sgx_crypto_helper"
 version = "1.1.6"
 source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6-testing#9c1bbd52f188f600a212b57c916124245da1b7fd"
@@ -2917,3 +2879,8 @@ source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6
 name = "sgx_tunittest"
 version = "1.1.6"
 source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6-testing#9c1bbd52f188f600a212b57c916124245da1b7fd"
+
+[[patch.unused]]
+name = "env_logger"
+version = "0.9.0"
+source = "git+https://github.com/integritee-network/env_logger-sgx#55745829b2ae8a77f0915af3671ec8a9a00cace9"
