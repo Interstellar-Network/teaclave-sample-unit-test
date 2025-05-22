@@ -47,6 +47,7 @@ default = []
 [dependencies]
 pallet-ocw-garble = { path = "../../../../pallets/ocw-garble", default-features = false, features = ["sgx"] }
 pallet-nfc-recovery = { path = "../../../../pallets/nfc-recovery", default-features = false }
+pallet-account-manager = { path = "../../../../pallets/account-manager", default-features = false }
 pallet-token-recovery = { path = "../../../../pallets/token-recovery", default-features = false, features = ["sgx"] }
 pallet-unify-recovery = { path = "../../../../pallets/unify-recovery", default-features = false}
 # ADDED:
