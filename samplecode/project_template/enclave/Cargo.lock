@@ -1544,6 +1544,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "pallet-key-manager"
+version = "4.0.0-dev"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "getrandom",
+ "hex",
+ "interstellar-common-traits",
+ "log",
+ "parity-scale-codec",
+ "scale-info",
+ "serde",
+ "serde_json",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
 name = "pallet-mobile-registry"
 version = "4.0.0-dev"
 dependencies = [
@@ -1551,6 +1571,7 @@ dependencies = [
  "frame-system",
  "interstellar-common-traits",
  "log",
+ "pallet-account-manager",
  "parity-scale-codec",
  "scale-info",
  "sp-std",
@@ -1562,12 +1583,10 @@ version = "4.0.0-dev"
 dependencies = [
  "frame-support",
  "frame-system",
- "interstellar-common-traits",
  "log",
  "pallet-account-manager",
  "pallet-balances",
- "pallet-proxy",
- "pallet-recovery",
+ "pallet-unify-recovery",
  "parity-scale-codec",
  "rand",
  "rand_chacha",
@@ -1685,9 +1704,9 @@ dependencies = [
  "lib-garble-rs",
  "log",
  "pallet-ocw-circuits",
- "pallet-recovery",
  "pallet-timestamp",
  "pallet-tx-validation",
+ "pallet-unify-recovery",
  "parity-scale-codec",
  "rand",
  "rand_chacha",
@@ -1712,6 +1731,28 @@ dependencies = [
  "log",
  "parity-scale-codec",
  "scale-info",
+ "sp-std",
+]
+
+[[package]]
+name = "pallet-unify-recovery"
+version = "4.0.0-dev"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "hex",
+ "interstellar-common-traits",
+ "log",
+ "pallet-balances",
+ "pallet-recovery",
+ "pallet-timestamp",
+ "parity-scale-codec",
+ "scale-info",
+ "serde",
+ "serde_json",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
  "sp-std",
 ]
 
@@ -2785,6 +2826,7 @@ version = "1.0.0"
 dependencies = [
  "interstellar-extended-signature",
  "pallet-account-manager",
+ "pallet-key-manager",
  "pallet-mobile-registry",
  "pallet-nfc-recovery",
  "pallet-ocw-garble",
