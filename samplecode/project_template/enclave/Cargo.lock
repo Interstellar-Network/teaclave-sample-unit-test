@@ -276,6 +276,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "bs58"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "771fe0050b883fcc3ea2359b1a96bcfbc090b7116eae7c3c512c7a083fdf23d3"
+
+[[package]]
 name = "byte-slice-cast"
 version = "1.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1738,6 +1744,35 @@ dependencies = [
 ]
 
 [[package]]
+name = "pallet-sol-client"
+version = "4.0.0-dev"
+dependencies = [
+ "base64 0.21.2",
+ "bs58",
+ "bytes",
+ "frame-support",
+ "frame-system",
+ "hex",
+ "interstellar-common-traits",
+ "interstellar-http-client",
+ "interstellar-ipfs-client",
+ "log",
+ "pallet-balances",
+ "pallet-key-manager",
+ "pallet-proxy",
+ "parity-scale-codec",
+ "scale-info",
+ "serde",
+ "serde_json",
+ "sgx_tstd",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+ "sp-version",
+]
+
+[[package]]
 name = "pallet-timestamp"
 version = "4.0.0-dev"
 source = "git+https://github.com/paritytech/substrate.git?branch=polkadot-v0.9.39#8c4b84520cee2d7de53cc33cb67605ce4efefba8"
@@ -2903,6 +2938,7 @@ dependencies = [
  "pallet-mobile-registry",
  "pallet-nfc-recovery",
  "pallet-ocw-garble",
+ "pallet-sol-client",
  "pallet-token-recovery",
  "sgx_alloc",
  "sgx_libc",
