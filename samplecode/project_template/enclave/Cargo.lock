@@ -171,6 +171,33 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "604178f6c5c21f02dc555784810edfb88d34ac2c73b2eae109655649ee73ce3d"
 
 [[package]]
+name = "bip39"
+version = "2.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "43d193de1f7487df1914d3a568b772458861d33f9c54249612cc2893d6915054"
+dependencies = [
+ "bitcoin_hashes",
+ "rand_core 0.6.4",
+ "unicode-normalization",
+]
+
+[[package]]
+name = "bitcoin-internals"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9425c3bf7089c983facbae04de54513cce73b41c7f9ff8c845b54e7bc64ebbfb"
+
+[[package]]
+name = "bitcoin_hashes"
+version = "0.13.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1930a4dabfebb8d7d9992db18ebe3ae2876f0a305fab206fd168df931ede293b"
+dependencies = [
+ "bitcoin-internals",
+ "hex-conservative",
+]
+
+[[package]]
 name = "bitflags"
 version = "1.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -908,13 +935,13 @@ dependencies = [
 
 [[package]]
 name = "getrandom"
-version = "0.2.3"
-source = "git+https://github.com/integritee-network/getrandom-sgx?branch=update-v2.3#0a4af01fe1df0e6200192e7a709fd18da413466e"
+version = "0.2.16"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "335ff9f135e4384c8150d6f27c6daed433577f86b4750418338c01a1a2528592"
 dependencies = [
  "cfg-if",
- "sgx_libc",
- "sgx_trts",
- "sgx_tstd",
+ "libc",
+ "wasi",
 ]
 
 [[package]]
@@ -1000,6 +1027,12 @@ name = "hex"
 version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7f24254aa9a54b5c858eaee2f5bccdb46aaf0e486a595ed5fd8f86ba55232a70"
+
+[[package]]
+name = "hex-conservative"
+version = "0.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "212ab92002354b4819390025006c897e8140934349e8635c9b077f47b4dcbd20"
 
 [[package]]
 name = "hmac"
@@ -1553,7 +1586,6 @@ dependencies = [
  "bytes",
  "frame-support",
  "frame-system",
- "getrandom",
  "hex",
  "interstellar-common-traits",
  "interstellar-http-client",
@@ -1578,6 +1610,7 @@ dependencies = [
 name = "pallet-key-manager"
 version = "4.0.0-dev"
 dependencies = [
+ "bip39",
  "frame-support",
  "frame-system",
  "getrandom",
@@ -1585,6 +1618,8 @@ dependencies = [
  "interstellar-common-traits",
  "log",
  "parity-scale-codec",
+ "rand",
+ "rand_chacha",
  "scale-info",
  "serde",
  "serde_json",
@@ -2907,6 +2942,21 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7300fbefb4dadc1af235a9cef3737cea692a9d97e1b9cbcd4ebdae6f8868e6fb"
 
 [[package]]
+name = "tinyvec"
+version = "1.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "09b3661f17e86524eccd4371ab0429194e0d7c008abb45f7a7495b1719463c71"
+dependencies = [
+ "tinyvec_macros",
+]
+
+[[package]]
+name = "tinyvec_macros"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1f3ccbac311fea05f86f61904b462b55fb3df8837a366dfc601a0161d0532f20"
+
+[[package]]
 name = "toml_datetime"
 version = "0.6.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2997,6 +3047,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "22049a19f4a68748a168c0fc439f9516686aa045927ff767eca0a85101fb6e73"
 
 [[package]]
+name = "unicode-normalization"
+version = "0.1.24"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5033c97c4262335cded6d6fc3e5c18ab755e1a3dc96376350f3d8e9f009ad956"
+dependencies = [
+ "tinyvec",
+]
+
+[[package]]
 name = "unicode-width"
 version = "0.1.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3029,6 +3088,12 @@ name = "version_check"
 version = "0.9.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "49874b5167b65d7193b8aba1567f5c7d93d001cafc34600cee003eda787e483f"
+
+[[package]]
+name = "wasi"
+version = "0.11.1+wasi-snapshot-preview1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ccf3ec651a847eb01de73ccad15eb7d99f80485de043efb2f370cd654f4ea44b"
 
 [[package]]
 name = "webpki"
@@ -3125,11 +3190,6 @@ dependencies = [
 ]
 
 [[patch.unused]]
-name = "env_logger"
-version = "0.9.0"
-source = "git+https://github.com/integritee-network/env_logger-sgx#55745829b2ae8a77f0915af3671ec8a9a00cace9"
-
-[[patch.unused]]
 name = "sgx_crypto_helper"
 version = "1.1.6"
 source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6-testing#9c1bbd52f188f600a212b57c916124245da1b7fd"
@@ -3158,3 +3218,13 @@ source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6
 name = "sgx_tunittest"
 version = "1.1.6"
 source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6-testing#9c1bbd52f188f600a212b57c916124245da1b7fd"
+
+[[patch.unused]]
+name = "env_logger"
+version = "0.9.0"
+source = "git+https://github.com/integritee-network/env_logger-sgx#55745829b2ae8a77f0915af3671ec8a9a00cace9"
+
+[[patch.unused]]
+name = "getrandom"
+version = "0.2.3"
+source = "git+https://github.com/integritee-network/getrandom-sgx?branch=update-v2.3#0a4af01fe1df0e6200192e7a709fd18da413466e"
