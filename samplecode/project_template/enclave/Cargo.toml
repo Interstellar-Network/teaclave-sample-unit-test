@@ -52,6 +52,7 @@ pallet-token-recovery = { path = "../../../../pallets/token-recovery", default-f
 pallet-mobile-registry = { path = "../../../../pallets/mobile-registry/", default-features = false }
 interstellar-extended-signature = { path = "../../../../crates/extended-signature/", default-features = false }
 pallet-key-manager = { path = "../../../../pallets/key-manager", default-features = false }
+pallet-subscan = { path = "../../../../pallets/subscan", default-features = false , features = ["sgx"] }
 pallet-dot-client = { path = "../../../../pallets/dot-client", default-features = false , features = ["sgx"] }
 pallet-sol-client = { path = "../../../../pallets/sol-client", default-features = false , features = ["sgx"] }
 # ADDED:
