@@ -1176,6 +1176,38 @@ dependencies = [
 ]
 
 [[package]]
+name = "interstellar-ocw-garble"
+version = "0.1.0"
+dependencies = [
+ "aes-gcm",
+ "bytes",
+ "circuits-storage-common",
+ "frame-support",
+ "frame-system",
+ "getrandom",
+ "hex",
+ "interstellar-common-traits",
+ "interstellar-http-client",
+ "interstellar-ipfs-client",
+ "lib-garble-rs",
+ "log",
+ "pallet-ocw-circuits",
+ "pallet-tx-validation",
+ "parity-scale-codec",
+ "rand",
+ "rand_chacha",
+ "scale-info",
+ "serde",
+ "serde_json",
+ "sgx_tstd",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+ "typenum",
+]
+
+[[package]]
 name = "itertools"
 version = "0.10.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1568,7 +1600,6 @@ dependencies = [
  "log",
  "pallet-balances",
  "pallet-key-manager",
- "pallet-proxy",
  "pallet-subscan",
  "parity-scale-codec",
  "scale-info",
@@ -1585,17 +1616,23 @@ dependencies = [
 name = "pallet-key-manager"
 version = "4.0.0-dev"
 dependencies = [
+ "bytes",
+ "circuits-storage-common",
  "frame-support",
  "frame-system",
  "getrandom",
  "hex",
  "interstellar-common-traits",
+ "interstellar-ocw-garble",
  "log",
+ "pallet-tx-validation",
  "parity-scale-codec",
  "rand",
+ "rand_chacha",
  "scale-info",
  "serde",
  "serde_json",
+ "sgx_tstd",
  "sp-core",
  "sp-io",
  "sp-runtime",
@@ -2922,6 +2959,7 @@ name = "template"
 version = "1.0.0"
 dependencies = [
  "interstellar-extended-signature",
+ "interstellar-ocw-garble",
  "pallet-account-manager",
  "pallet-dot-client",
  "pallet-key-manager",
