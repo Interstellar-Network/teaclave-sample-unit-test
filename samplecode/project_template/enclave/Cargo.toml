@@ -51,7 +51,7 @@ pallet-account-manager = { path = "../../../../pallets/account-manager", default
 pallet-token-recovery = { path = "../../../../pallets/token-recovery", default-features = false, features = ["sgx"] }
 pallet-mobile-registry = { path = "../../../../pallets/mobile-registry/", default-features = false }
 interstellar-extended-signature = { path = "../../../../crates/extended-signature/", default-features = false }
-interstellar-ocw-garble = { path = "../../../../crates/ocw-garble/", default-features = false, features = ["sgx"] }
+garble-core = { path = "../../../../crates/ocw-garble/", default-features = false, features = ["sgx"] }
 pallet-key-manager = { path = "../../../../pallets/key-manager/", default-features = false, features = ["sgx"] }
 pallet-subscan = { path = "../../../../pallets/subscan", default-features = false , features = ["sgx"] }
 pallet-dot-client = { path = "../../../../pallets/dot-client", default-features = false , features = ["sgx"] }

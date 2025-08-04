@@ -893,6 +893,38 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e6d5a32815ae3f33302d95fdcb2ce17862f8c65363dcfd29360480ba1001fc9c"
 
 [[package]]
+name = "garble-core"
+version = "0.1.0"
+dependencies = [
+ "aes-gcm",
+ "bytes",
+ "circuits-storage-common",
+ "frame-support",
+ "frame-system",
+ "getrandom",
+ "hex",
+ "interstellar-common-traits",
+ "interstellar-http-client",
+ "interstellar-ipfs-client",
+ "lib-garble-rs",
+ "log",
+ "pallet-ocw-circuits",
+ "pallet-tx-validation",
+ "parity-scale-codec",
+ "rand",
+ "rand_chacha",
+ "scale-info",
+ "serde",
+ "serde_json",
+ "sgx_tstd",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+ "typenum",
+]
+
+[[package]]
 name = "generic-array"
 version = "0.12.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1173,38 +1205,6 @@ dependencies = [
  "serde_with",
  "sgx_tstd",
  "snafu",
-]
-
-[[package]]
-name = "interstellar-ocw-garble"
-version = "0.1.0"
-dependencies = [
- "aes-gcm",
- "bytes",
- "circuits-storage-common",
- "frame-support",
- "frame-system",
- "getrandom",
- "hex",
- "interstellar-common-traits",
- "interstellar-http-client",
- "interstellar-ipfs-client",
- "lib-garble-rs",
- "log",
- "pallet-ocw-circuits",
- "pallet-tx-validation",
- "parity-scale-codec",
- "rand",
- "rand_chacha",
- "scale-info",
- "serde",
- "serde_json",
- "sgx_tstd",
- "sp-core",
- "sp-io",
- "sp-runtime",
- "sp-std",
- "typenum",
 ]
 
 [[package]]
@@ -1620,10 +1620,10 @@ dependencies = [
  "circuits-storage-common",
  "frame-support",
  "frame-system",
+ "garble-core",
  "getrandom",
  "hex",
  "interstellar-common-traits",
- "interstellar-ocw-garble",
  "log",
  "pallet-tx-validation",
  "parity-scale-codec",
@@ -1824,6 +1824,7 @@ dependencies = [
  "circuits-storage-common",
  "frame-support",
  "frame-system",
+ "garble-core",
  "getrandom",
  "hex",
  "interstellar-common-traits",
@@ -2958,8 +2959,8 @@ checksum = "55937e1799185b12863d447f42597ed69d9928686b8d88a1df17376a097d8369"
 name = "template"
 version = "1.0.0"
 dependencies = [
+ "garble-core",
  "interstellar-extended-signature",
- "interstellar-ocw-garble",
  "pallet-account-manager",
  "pallet-dot-client",
  "pallet-key-manager",
