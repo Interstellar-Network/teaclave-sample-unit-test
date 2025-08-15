@@ -951,7 +951,7 @@ dependencies = [
  "getrandom",
  "hex",
  "interstellar-common-traits",
- "interstellar-http-client",
+ "interstellar-http-client 0.5.0 (git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=feature/bitcoin-client)",
  "interstellar-ipfs-client",
  "lib-garble-rs",
  "log",
@@ -1239,6 +1239,23 @@ dependencies = [
 [[package]]
 name = "interstellar-http-client"
 version = "0.5.0"
+source = "git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=feature/bitcoin-client#29302fdb970a1e9b7ce650d693ef42ec2e12c7eb"
+dependencies = [
+ "base64 0.21.2",
+ "bytes",
+ "cfg-if",
+ "hex",
+ "http_req",
+ "log",
+ "parity-scale-codec",
+ "serde",
+ "serde_json",
+ "snafu",
+]
+
+[[package]]
+name = "interstellar-http-client"
+version = "0.5.0"
 source = "git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=main#0272cab77323c02286599fe10a32e5175dbe09a0"
 dependencies = [
  "base64 0.21.2",
@@ -1260,7 +1277,7 @@ name = "interstellar-ipfs-client"
 version = "0.5.0"
 source = "git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=main#0272cab77323c02286599fe10a32e5175dbe09a0"
 dependencies = [
- "interstellar-http-client",
+ "interstellar-http-client 0.5.0 (git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=main)",
  "log",
  "serde",
  "serde_json",
@@ -1654,10 +1671,14 @@ version = "0.1.0"
 dependencies = [
  "base64 0.21.2",
  "bitcoin",
+ "bytes",
  "frame-support",
  "frame-system",
  "hex",
+ "interstellar-common-traits",
+ "interstellar-http-client 0.5.0 (git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=feature/bitcoin-client)",
  "log",
+ "pallet-key-manager",
  "parity-scale-codec",
  "scale-info",
  "serde",
@@ -1677,7 +1698,7 @@ dependencies = [
  "frame-system",
  "hex",
  "interstellar-common-traits",
- "interstellar-http-client",
+ "interstellar-http-client 0.5.0 (git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=feature/bitcoin-client)",
  "interstellar-ipfs-client",
  "log",
  "pallet-balances",
@@ -1712,6 +1733,7 @@ dependencies = [
  "rand",
  "rand_chacha",
  "scale-info",
+ "secp256k1 0.29.1",
  "serde",
  "serde_json",
  "sgx_tstd",
@@ -1783,7 +1805,7 @@ dependencies = [
  "frame-system",
  "hex",
  "interstellar-common-traits",
- "interstellar-http-client",
+ "interstellar-http-client 0.5.0 (git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=feature/bitcoin-client)",
  "interstellar-ipfs-client",
  "lib-garble-rs",
  "log",
@@ -1840,7 +1862,7 @@ dependencies = [
  "frame-system",
  "hex",
  "interstellar-common-traits",
- "interstellar-http-client",
+ "interstellar-http-client 0.5.0 (git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=feature/bitcoin-client)",
  "interstellar-ipfs-client",
  "log",
  "pallet-balances",
@@ -1867,7 +1889,7 @@ dependencies = [
  "frame-system",
  "hex",
  "interstellar-common-traits",
- "interstellar-http-client",
+ "interstellar-http-client 0.5.0 (git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=feature/bitcoin-client)",
  "interstellar-ipfs-client",
  "log",
  "parity-scale-codec",
@@ -1910,12 +1932,11 @@ dependencies = [
  "getrandom",
  "hex",
  "interstellar-common-traits",
- "interstellar-http-client",
+ "interstellar-http-client 0.5.0 (git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=feature/bitcoin-client)",
  "interstellar-ipfs-client",
  "lib-garble-rs",
  "log",
  "pallet-ocw-circuits",
- "pallet-recovery",
  "pallet-timestamp",
  "pallet-tx-validation",
  "pallet-unify-recovery",
@@ -2365,6 +2386,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "secp256k1"
+version = "0.29.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9465315bc9d4566e1724f0fffcbcc446268cb522e60f9a27bcded6b19c108113"
+dependencies = [
+ "secp256k1-sys 0.10.1",
+]
+
+[[package]]
 name = "secp256k1-sys"
 version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2378,6 +2408,15 @@ name = "secp256k1-sys"
 version = "0.9.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e5d1746aae42c19d583c3c1a8c646bfad910498e2051c551a7f2e3c0c9fbb7eb"
+dependencies = [
+ "cc",
+]
+
+[[package]]
+name = "secp256k1-sys"
+version = "0.10.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d4387882333d3aa8cb20530a17c69a3752e97837832f34f6dccc760e715001d9"
 dependencies = [
  "cc",
 ]
@@ -3064,10 +3103,10 @@ dependencies = [
  "garble-core",
  "interstellar-extended-signature",
  "pallet-account-manager",
+ "pallet-btc-client",
  "pallet-dot-client",
  "pallet-key-manager",
  "pallet-mobile-registry",
- "pallet-btc-client",
  "pallet-nfc-recovery",
  "pallet-ocw-garble",
  "pallet-sol-client",
