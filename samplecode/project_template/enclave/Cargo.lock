@@ -1710,7 +1710,6 @@ dependencies = [
 ]
 
 [[package]]
-<<<<<<< HEAD
 name = "pallet-btc-client"
 version = "0.1.0"
 dependencies = [
@@ -1720,7 +1719,17 @@ dependencies = [
  "frame-system",
  "hex",
  "log",
-=======
+ "parity-scale-codec",
+ "scale-info",
+ "serde",
+ "serde_json",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
 name = "pallet-dot-client"
 version = "4.0.0-dev"
 dependencies = [
@@ -1735,15 +1744,11 @@ dependencies = [
  "pallet-balances",
  "pallet-key-manager",
  "pallet-subscan",
->>>>>>> fddc48c
  "parity-scale-codec",
  "scale-info",
  "serde",
  "serde_json",
-<<<<<<< HEAD
-=======
  "sgx_tstd",
->>>>>>> fddc48c
  "sp-core",
  "sp-io",
  "sp-runtime",
@@ -1751,9 +1756,6 @@ dependencies = [
 ]
 
 [[package]]
-<<<<<<< HEAD
-name = "pallet-nfc-recovery"
-=======
 name = "pallet-eth-client"
 version = "0.1.0"
 dependencies = [
@@ -1810,7 +1812,20 @@ dependencies = [
 
 [[package]]
 name = "pallet-mobile-registry"
->>>>>>> fddc48c
+version = "4.0.0-dev"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "interstellar-common-traits",
+ "log",
+ "pallet-account-manager",
+ "parity-scale-codec",
+ "scale-info",
+ "sp-std",
+]
+
+[[package]]
+name = "pallet-nfc-recovery"
 version = "4.0.0-dev"
 dependencies = [
  "frame-support",
@@ -2003,10 +2018,7 @@ dependencies = [
  "lib-garble-rs",
  "log",
  "pallet-ocw-circuits",
-<<<<<<< HEAD
  "pallet-recovery",
-=======
->>>>>>> fddc48c
  "pallet-timestamp",
  "pallet-tx-validation",
  "pallet-unify-recovery",
@@ -3184,14 +3196,11 @@ dependencies = [
  "garble-core",
  "interstellar-extended-signature",
  "pallet-account-manager",
-<<<<<<< HEAD
  "pallet-btc-client",
-=======
  "pallet-dot-client",
  "pallet-eth-client",
  "pallet-key-manager",
  "pallet-mobile-registry",
->>>>>>> fddc48c
  "pallet-nfc-recovery",
  "pallet-ocw-garble",
  "pallet-sol-client",
