@@ -1740,6 +1740,7 @@ dependencies = [
  "interstellar-http-client 0.5.0 (git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=feature/bitcoin-client)",
  "log",
  "pallet-key-manager",
+ "pallet-tx-manager",
  "parity-scale-codec",
  "scale-info",
  "serde",
@@ -2041,6 +2042,19 @@ dependencies = [
  "sp-runtime",
  "sp-std",
  "typenum",
+]
+
+[[package]]
+name = "pallet-tx-manager"
+version = "0.1.0"
+dependencies = [
+ "bitcoin",
+ "frame-support",
+ "frame-system",
+ "parity-scale-codec",
+ "scale-info",
+ "sp-runtime",
+ "sp-std",
 ]
 
 [[package]]
@@ -3496,16 +3510,6 @@ dependencies = [
 ]
 
 [[patch.unused]]
-name = "env_logger"
-version = "0.9.0"
-source = "git+https://github.com/integritee-network/env_logger-sgx#55745829b2ae8a77f0915af3671ec8a9a00cace9"
-
-[[patch.unused]]
-name = "getrandom"
-version = "0.2.3"
-source = "git+https://github.com/integritee-network/getrandom-sgx?branch=update-v2.3#0a4af01fe1df0e6200192e7a709fd18da413466e"
-
-[[patch.unused]]
 name = "sgx_crypto_helper"
 version = "1.1.6"
 source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6-testing#9c1bbd52f188f600a212b57c916124245da1b7fd"
@@ -3534,3 +3538,13 @@ source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6
 name = "sgx_tunittest"
 version = "1.1.6"
 source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6-testing#9c1bbd52f188f600a212b57c916124245da1b7fd"
+
+[[patch.unused]]
+name = "env_logger"
+version = "0.9.0"
+source = "git+https://github.com/integritee-network/env_logger-sgx#55745829b2ae8a77f0915af3671ec8a9a00cace9"
+
+[[patch.unused]]
+name = "getrandom"
+version = "0.2.3"
+source = "git+https://github.com/integritee-network/getrandom-sgx?branch=update-v2.3#0a4af01fe1df0e6200192e7a709fd18da413466e"
