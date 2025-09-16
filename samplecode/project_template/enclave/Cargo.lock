@@ -293,6 +293,24 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "771fe0050b883fcc3ea2359b1a96bcfbc090b7116eae7c3c512c7a083fdf23d3"
 
 [[package]]
+name = "btc-client"
+version = "0.1.0"
+dependencies = [
+ "bitcoin",
+ "bytes",
+ "hex",
+ "interstellar-http-client 0.5.0 (git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=feature/bitcoin-client)",
+ "log",
+ "pallet-key-manager",
+ "parity-scale-codec",
+ "scale-info",
+ "serde",
+ "serde_json",
+ "sp-core",
+ "sp-std",
+]
+
+[[package]]
 name = "byte-slice-cast"
 version = "1.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1727,31 +1745,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "pallet-btc-client"
-version = "0.1.0"
-dependencies = [
- "base64 0.21.2",
- "bitcoin",
- "bytes",
- "frame-support",
- "frame-system",
- "hex",
- "interstellar-common-traits",
- "interstellar-http-client 0.5.0 (git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=feature/bitcoin-client)",
- "log",
- "pallet-key-manager",
- "parity-scale-codec",
- "scale-info",
- "serde",
- "serde_json",
- "sgx_tstd",
- "sp-core",
- "sp-io",
- "sp-runtime",
- "sp-std",
-]
-
-[[package]]
 name = "pallet-dot-client"
 version = "4.0.0-dev"
 dependencies = [
@@ -1766,6 +1759,7 @@ dependencies = [
  "pallet-balances",
  "pallet-key-manager",
  "pallet-subscan",
+ "pallet-tx-manager",
  "parity-scale-codec",
  "scale-info",
  "serde",
@@ -1957,6 +1951,7 @@ dependencies = [
  "pallet-balances",
  "pallet-key-manager",
  "pallet-proxy",
+ "pallet-tx-manager",
  "parity-scale-codec",
  "scale-info",
  "serde",
@@ -2041,6 +2036,26 @@ dependencies = [
  "sp-runtime",
  "sp-std",
  "typenum",
+]
+
+[[package]]
+name = "pallet-tx-manager"
+version = "0.1.0"
+dependencies = [
+ "bitcoin",
+ "btc-client",
+ "circuits-storage-common",
+ "frame-support",
+ "frame-system",
+ "interstellar-common-traits",
+ "log",
+ "pallet-key-manager",
+ "parity-scale-codec",
+ "scale-info",
+ "sgx_tstd",
+ "sp-core",
+ "sp-runtime",
+ "sp-std",
 ]
 
 [[package]]
@@ -3200,10 +3215,10 @@ checksum = "55937e1799185b12863d447f42597ed69d9928686b8d88a1df17376a097d8369"
 name = "template"
 version = "1.0.0"
 dependencies = [
+ "btc-client",
  "garble-core",
  "interstellar-extended-signature",
  "pallet-account-manager",
- "pallet-btc-client",
  "pallet-dot-client",
  "pallet-eth-client",
  "pallet-key-manager",
@@ -3213,6 +3228,7 @@ dependencies = [
  "pallet-sol-client",
  "pallet-subscan",
  "pallet-token-recovery",
+ "pallet-tx-manager",
  "sgx_alloc",
  "sgx_libc",
  "sgx_serialize",
@@ -3496,16 +3512,6 @@ dependencies = [
 ]
 
 [[patch.unused]]
-name = "env_logger"
-version = "0.9.0"
-source = "git+https://github.com/integritee-network/env_logger-sgx#55745829b2ae8a77f0915af3671ec8a9a00cace9"
-
-[[patch.unused]]
-name = "getrandom"
-version = "0.2.3"
-source = "git+https://github.com/integritee-network/getrandom-sgx?branch=update-v2.3#0a4af01fe1df0e6200192e7a709fd18da413466e"
-
-[[patch.unused]]
 name = "sgx_crypto_helper"
 version = "1.1.6"
 source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6-testing#9c1bbd52f188f600a212b57c916124245da1b7fd"
@@ -3534,3 +3540,13 @@ source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6
 name = "sgx_tunittest"
 version = "1.1.6"
 source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6-testing#9c1bbd52f188f600a212b57c916124245da1b7fd"
+
+[[patch.unused]]
+name = "env_logger"
+version = "0.9.0"
+source = "git+https://github.com/integritee-network/env_logger-sgx#55745829b2ae8a77f0915af3671ec8a9a00cace9"
+
+[[patch.unused]]
+name = "getrandom"
+version = "0.2.3"
+source = "git+https://github.com/integritee-network/getrandom-sgx?branch=update-v2.3#0a4af01fe1df0e6200192e7a709fd18da413466e"
