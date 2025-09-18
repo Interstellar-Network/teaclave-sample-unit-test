@@ -817,6 +817,33 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "88bffebc5d80432c9b140ee17875ff173a8ab62faad5b257da912bd2f6c1c0a1"
 
 [[package]]
+name = "eth-client"
+version = "0.1.0"
+dependencies = [
+ "base64 0.21.2",
+ "bytes",
+ "elliptic-curve 0.13.8",
+ "ethereum-types",
+ "frame-support",
+ "frame-system",
+ "hex",
+ "interstellar-common-traits",
+ "interstellar-http-client 0.5.0 (git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=feature/bitcoin-client)",
+ "k256 0.13.4",
+ "log",
+ "pallet-key-manager",
+ "parity-scale-codec",
+ "rlp",
+ "scale-info",
+ "serde",
+ "serde_json",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
 name = "ethbloom"
 version = "0.14.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1772,34 +1799,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "pallet-eth-client"
-version = "0.1.0"
-dependencies = [
- "base64 0.21.2",
- "bytes",
- "elliptic-curve 0.13.8",
- "ethereum-types",
- "frame-support",
- "frame-system",
- "hex",
- "interstellar-common-traits",
- "interstellar-http-client 0.5.0 (git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=feature/bitcoin-client)",
- "k256 0.13.4",
- "log",
- "pallet-key-manager",
- "parity-scale-codec",
- "rlp",
- "scale-info",
- "serde",
- "serde_json",
- "sgx_tstd",
- "sp-core",
- "sp-io",
- "sp-runtime",
- "sp-std",
-]
-
-[[package]]
 name = "pallet-key-manager"
 version = "4.0.0-dev"
 dependencies = [
@@ -2045,6 +2044,8 @@ dependencies = [
  "bitcoin",
  "btc-client",
  "circuits-storage-common",
+ "eth-client",
+ "ethereum-types",
  "frame-support",
  "frame-system",
  "interstellar-common-traits",
@@ -3216,11 +3217,11 @@ name = "template"
 version = "1.0.0"
 dependencies = [
  "btc-client",
+ "eth-client",
  "garble-core",
  "interstellar-extended-signature",
  "pallet-account-manager",
  "pallet-dot-client",
- "pallet-eth-client",
  "pallet-key-manager",
  "pallet-mobile-registry",
  "pallet-nfc-recovery",
