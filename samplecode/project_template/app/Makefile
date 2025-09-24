@@ -95,7 +95,7 @@ else
 	@echo "\033[32mHardware mode\033[0m"
 endif
 	@echo "\033[32mStarting cargo to build the host...\033[0m"
-	@cd $(SRC_U) && SGX_SDK=$(SGX_SDK) cargo build --release
+	@cd $(SRC_U) && SGX_SDK=$(SGX_SDK) cargo build -v --target-dir=./target --release
 	@echo "\033[32mCopying the host to the correct location... ($(BIN_U))\033[0m"
 	@mkdir -p $(BIN)
 	@cp $(SRC_U)/target/release/app $(BIN)

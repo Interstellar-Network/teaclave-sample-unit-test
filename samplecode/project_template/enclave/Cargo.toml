@@ -51,7 +51,7 @@ pallet-account-manager = { path = "../../../../pallets/account-manager", default
 pallet-token-recovery = { path = "../../../../pallets/token-recovery", default-features = false, features = ["sgx"] }
 pallet-mobile-registry = { path = "../../../../pallets/mobile-registry/", default-features = false }
 interstellar-extended-signature = { path = "../../../../crates/extended-signature/", default-features = false }
-garble-core = { path = "../../../../crates/ocw-garble/", default-features = false, features = ["sgx"] }
+garble-core = { path = "../../../../crates/garble-core/", default-features = false, features = ["sgx"] }
 pallet-key-manager = { path = "../../../../pallets/key-manager/", default-features = false, features = ["sgx"] }
 pallet-subscan = { path = "../../../../pallets/subscan", default-features = false , features = ["sgx"] }
 pallet-dot-client = { path = "../../../../pallets/dot-client", default-features = false , features = ["sgx"] }
@@ -80,7 +80,8 @@ pallet-btc-client = { path = "../../../../pallets/btc-client", default-features 
 #     ... required by package `template v1.0.0 (/home/pratn/Documents/interstellar/rs-common/tests_sgx/samplecode/project_template/enclave)`
 # versions that meet the requirements `^7` are: 7.0.0
 # the package `template` depends on `sp-io`, with features: `sgx` but `sp-io` does not have these features.
-sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "d3b6371613e2470ab5680c1bc7b68cd85cc2773b", default-features = false, features = ["sgx"] }
+# TODO
+sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "v0.16.1", default-features = false, features = ["sgx"] }
 # Same issues from this dep:
 # We MUST enable "sp-application-crypto/full_crypto; it is normally done by sp-io but only for "std"
 # So we add a "fake" dep to "sp-application-crypto" here
@@ -93,17 +94,22 @@ sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker
 #     |
 # 274 |         impl $crate::CryptoType for Public {}
 #     |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ missing `Pair` in implementation
-sp-application-crypto = { default-features = false, features = ["full_crypto"], git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v0.9.39" }
+# TODO
+sp-application-crypto = { default-features = false, features = ["full_crypto"], git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v0.9.42" }
 
-[target.'cfg(not(target_env = "sgx"))'.dependencies] # You can remove what you don't need, except types and tstd
-sgx_types = { git = "https://github.com/apache/teaclave-sgx-sdk.git", rev = "v1.1.6" }
-sgx_tstd = { default-features = false, git = "https://github.com/apache/teaclave-sgx-sdk.git", features = ["backtrace"], rev = "v1.1.6" }
-sgx_tcrypto = { git = "https://github.com/apache/teaclave-sgx-sdk.git", rev = "v1.1.6" }
-sgx_trts = { git = "https://github.com/apache/teaclave-sgx-sdk.git", rev = "v1.1.6" }
-sgx_tseal = { git = "https://github.com/apache/teaclave-sgx-sdk.git", rev = "v1.1.6" }
-sgx_serialize = { git = "https://github.com/apache/teaclave-sgx-sdk.git", rev = "v1.1.6" }
-sgx_alloc = { git = "https://github.com/apache/teaclave-sgx-sdk.git", rev = "v1.1.6" }
-sgx_libc = { git = "https://github.com/apache/teaclave-sgx-sdk.git", rev = "v1.1.6" }
+# https://github.com/integritee-network/worker/blob/v0.16.1/enclave-runtime/Cargo.toml#L52C1-L63C90
+[target.'cfg(not(target_env = "sgx"))'.dependencies]
+sgx-crypto-helper = { branch = "master", git = "https://github.com/apache/teaclave-sgx-sdk.git", package = "sgx_tcrypto_helper" }
+sgx_rand = { branch = "master", git = "https://github.com/apache/teaclave-sgx-sdk.git" }
+sgx_serialize = { branch = "master", git = "https://github.com/apache/teaclave-sgx-sdk.git" }
+sgx_serialize_derive = { branch = "master", git = "https://github.com/apache/teaclave-sgx-sdk.git" }
+sgx_tcrypto = { branch = "master", git = "https://github.com/apache/teaclave-sgx-sdk.git" }
+sgx_trts = { branch = "master", git = "https://github.com/apache/teaclave-sgx-sdk.git" }
+sgx_tse = { branch = "master", git = "https://github.com/apache/teaclave-sgx-sdk.git" }
+sgx_tseal = { branch = "master", git = "https://github.com/apache/teaclave-sgx-sdk.git" }
+sgx_tstd = { branch = "master", git = "https://github.com/apache/teaclave-sgx-sdk.git", features = ["untrusted_fs", "net", "backtrace"] }
+sgx_tunittest = { branch = "master", git = "https://github.com/apache/teaclave-sgx-sdk.git" }
+sgx_types = { branch = "master", git = "https://github.com/apache/teaclave-sgx-sdk.git" }
 
 ################################################################################
 # patches below are copy-pasted(and adapted) from https://github.com/integritee-network/worker/blob/b54c825fb13fe99f77fe549798a6c63853d81c34/enclave-runtime/Cargo.toml#L137
@@ -118,42 +124,41 @@ sgx_libc = { git = "https://github.com/apache/teaclave-sgx-sdk.git", rev = "v1.1
 env_logger = { git = "https://github.com/integritee-network/env_logger-sgx" }
 getrandom = { git = "https://github.com/integritee-network/getrandom-sgx", branch = "update-v2.3" }
 log = { git = "https://github.com/integritee-network/log-sgx" }
+ring = { git = "https://github.com/betrusted-io/ring-xous", branch = "0.16.20-cleanup" }
 
 [patch."https://github.com/mesalock-linux/log-sgx"]
 log = { git = "https://github.com/integritee-network/log-sgx" }
 
+# https://github.com/integritee-network/worker/blob/v0.16.1/enclave-runtime/Cargo.toml#L157
+# That one is the `rev` that match the link!
 [patch."https://github.com/paritytech/substrate"]
-sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "d3b6371613e2470ab5680c1bc7b68cd85cc2773b" }
+sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "v0.16.1" }
 [patch."https://github.com/paritytech/substrate.git"]
-sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "d3b6371613e2470ab5680c1bc7b68cd85cc2773b" }
+sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "v0.16.1" }
 
-#[patch."https://github.com/integritee-network/frontier"]
-#pallet-evm = { path = "../../frontier/frame/evm"}
-
+# https://github.com/integritee-network/worker/blob/v0.16.1/enclave-runtime/Cargo.toml#L160
+# That one is just copy-pasted
 [patch."https://github.com/apache/teaclave-sgx-sdk.git"]
-sgx_alloc = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_crypto_helper = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_libc = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_rand = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_serialize = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_serialize_derive = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_serialize_derive_internals = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_tcrypto = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_tcrypto_helper = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_trts = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_tse = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_tseal = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_tstd = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_tunittest = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
-sgx_types = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "v1.1.6-testing" }
+sgx_alloc = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_crypto_helper = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_libc = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_rand = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_serialize = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_serialize_derive = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_serialize_derive_internals = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_tcrypto = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_tcrypto_helper = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_trts = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_tse = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_tseal = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_tstd = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_tunittest = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
+sgx_types = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
 
-#[patch."https://github.com/scs/substrate-api-client"]
-#substrate-api-client = { path = "../../../scs/substrate-api-client" }
-
-#[patch."https://github.com/integritee-network/pallets.git"]
-#pallet-parentchain = { path = "../../pallets/parentchain" }
-#itp-types = {  path = "../../pallets/primitives/types" }
-#itp-utils = {  path = "../../pallets/primitives/utils" }
-
-#[patch."https://github.com/integritee-network/http_req"]
-#http_req-sgx = {  package = "http_req", path = '../../http_req' }
+################################################################################
+[patch."ssh://git@github.com/Interstellar-Network/rs-common-internal.git"]
+tests-utils = { path = "../../../../../rs-common-internal/tests_utils/" }
+interstellar-http-client-new = { path = "../../../../../rs-common-internal/http-client-new/" }
+interstellar-ipfs-client-new = { path = "../../../../../rs-common-internal/ipfs-client-http-req-new/" }
+interstellar-http-client-old = { path = "../../../../../rs-common-internal/http-client-old/" }
+interstellar-ipfs-client-old = { path = "../../../../../rs-common-internal/ipfs-client-http-req-old/" }
