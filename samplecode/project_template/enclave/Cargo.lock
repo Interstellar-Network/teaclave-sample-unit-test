@@ -1249,6 +1249,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "interstellar-node-rpc"
+version = "0.1.0"
+dependencies = [
+ "bytes",
+ "circuits-storage-common-old",
+ "frame-support",
+ "hex",
+ "interstellar-common-traits",
+ "interstellar-http-client-old",
+ "interstellar-ipfs-client-old",
+ "log",
+ "serde_json",
+ "sgx_tstd",
+ "sp-runtime",
+]
+
+[[package]]
 name = "itertools"
 version = "0.10.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3146,6 +3163,7 @@ version = "1.0.0"
 dependencies = [
  "garble-core",
  "interstellar-extended-signature",
+ "interstellar-node-rpc",
  "pallet-account-manager",
  "pallet-btc-client",
  "pallet-dot-client",
@@ -3406,18 +3424,6 @@ dependencies = [
 ]
 
 [[patch.unused]]
-name = "interstellar-http-client-new"
-version = "0.5.0"
-
-[[patch.unused]]
-name = "interstellar-ipfs-client-new"
-version = "0.5.0"
-
-[[patch.unused]]
-name = "tests-utils"
-version = "0.1.0"
-
-[[patch.unused]]
 name = "env_logger"
 version = "0.9.0"
 source = "git+https://github.com/integritee-network/env_logger-sgx#55745829b2ae8a77f0915af3671ec8a9a00cace9"
@@ -3431,3 +3437,15 @@ source = "git+https://github.com/integritee-network/getrandom-sgx?branch=update-
 name = "ring"
 version = "0.16.20"
 source = "git+https://github.com/betrusted-io/ring-xous?branch=0.16.20-cleanup#4296c2e7904898766cf7d8d589759a129794783b"
+
+[[patch.unused]]
+name = "interstellar-http-client-new"
+version = "0.5.0"
+
+[[patch.unused]]
+name = "interstellar-ipfs-client-new"
+version = "0.5.0"
+
+[[patch.unused]]
+name = "tests-utils"
+version = "0.1.0"
