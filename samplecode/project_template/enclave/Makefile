@@ -114,7 +114,7 @@ ifeq ($(XARGO_SGX), 1) # Building with Xargo
 	@cp ./target/x86_64-unknown-linux-sgx/release/$(ENCLAVE_CARGO_LIB) $(LIB)libenclave.a
 else
 	@echo "\033[32mBuilding enclave static library with Cargo...\033[0m"
-	@cargo build --release
+	@cargo build --target-dir=./target --release
 	@cp ./target/release/$(ENCLAVE_CARGO_LIB) $(LIB)libenclave.a
 endif
 
