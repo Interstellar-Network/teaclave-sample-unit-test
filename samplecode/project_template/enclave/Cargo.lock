@@ -296,9 +296,13 @@ checksum = "771fe0050b883fcc3ea2359b1a96bcfbc090b7116eae7c3c512c7a083fdf23d3"
 name = "btc-client"
 version = "0.1.0"
 dependencies = [
+ "base64 0.21.2",
  "bitcoin",
  "bytes",
+ "frame-support",
+ "frame-system",
  "hex",
+ "interstellar-common-traits",
  "interstellar-http-client 0.5.0 (git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=feature/bitcoin-client)",
  "log",
  "pallet-key-manager",
@@ -306,7 +310,10 @@ dependencies = [
  "scale-info",
  "serde",
  "serde_json",
+ "sgx_tstd",
  "sp-core",
+ "sp-io",
+ "sp-runtime",
  "sp-std",
 ]
 
@@ -837,6 +844,7 @@ dependencies = [
  "scale-info",
  "serde",
  "serde_json",
+ "sgx_tstd",
  "sp-core",
  "sp-io",
  "sp-runtime",
@@ -2041,13 +2049,11 @@ dependencies = [
 name = "pallet-tx-manager"
 version = "0.1.0"
 dependencies = [
- "bitcoin",
  "btc-client",
- "circuits-storage-common",
  "eth-client",
- "ethereum-types",
  "frame-support",
  "frame-system",
+ "garble-core",
  "interstellar-common-traits",
  "log",
  "pallet-key-manager",
@@ -3513,6 +3519,16 @@ dependencies = [
 ]
 
 [[patch.unused]]
+name = "env_logger"
+version = "0.9.0"
+source = "git+https://github.com/integritee-network/env_logger-sgx#55745829b2ae8a77f0915af3671ec8a9a00cace9"
+
+[[patch.unused]]
+name = "getrandom"
+version = "0.2.3"
+source = "git+https://github.com/integritee-network/getrandom-sgx?branch=update-v2.3#0a4af01fe1df0e6200192e7a709fd18da413466e"
+
+[[patch.unused]]
 name = "sgx_crypto_helper"
 version = "1.1.6"
 source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6-testing#9c1bbd52f188f600a212b57c916124245da1b7fd"
@@ -3541,13 +3557,3 @@ source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6
 name = "sgx_tunittest"
 version = "1.1.6"
 source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6-testing#9c1bbd52f188f600a212b57c916124245da1b7fd"
-
-[[patch.unused]]
-name = "env_logger"
-version = "0.9.0"
-source = "git+https://github.com/integritee-network/env_logger-sgx#55745829b2ae8a77f0915af3671ec8a9a00cace9"
-
-[[patch.unused]]
-name = "getrandom"
-version = "0.2.3"
-source = "git+https://github.com/integritee-network/getrandom-sgx?branch=update-v2.3#0a4af01fe1df0e6200192e7a709fd18da413466e"
