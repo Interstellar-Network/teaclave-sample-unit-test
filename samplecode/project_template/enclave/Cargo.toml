@@ -55,7 +55,7 @@ garble-core = { path = "../../../../crates/ocw-garble/", default-features = fals
 pallet-key-manager = { path = "../../../../pallets/key-manager/", default-features = false, features = ["sgx"] }
 pallet-subscan = { path = "../../../../pallets/subscan", default-features = false , features = ["sgx"] }
 pallet-dot-client = { path = "../../../../pallets/dot-client", default-features = false , features = ["sgx"] }
-pallet-sol-client = { path = "../../../../pallets/sol-client", default-features = false , features = ["sgx"] }
+sol-client = { path = "../../../../pallets/sol-client", default-features = false , features = ["sgx"] }
 eth-client = { path = "../../../../pallets/eth-client", default-features = false, features = ["sgx"] }
 pallet-tx-manager = { path = "../../../../pallets/tx-manager", default-features = false , features = ["sgx"] }
 btc-client = { path = "../../../../pallets/btc-client", default-features = false, features = ["sgx"] }

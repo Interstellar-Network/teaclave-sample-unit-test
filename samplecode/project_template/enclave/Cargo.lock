@@ -848,7 +848,6 @@ dependencies = [
  "sp-core",
  "sp-io",
  "sp-runtime",
- "sp-std",
 ]
 
 [[package]]
@@ -1942,36 +1941,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "pallet-sol-client"
-version = "4.0.0-dev"
-dependencies = [
- "base64 0.21.2",
- "bs58",
- "bytes",
- "frame-support",
- "frame-system",
- "hex",
- "interstellar-common-traits",
- "interstellar-http-client 0.5.0 (git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=feature/bitcoin-client)",
- "interstellar-ipfs-client",
- "log",
- "pallet-balances",
- "pallet-key-manager",
- "pallet-proxy",
- "pallet-tx-manager",
- "parity-scale-codec",
- "scale-info",
- "serde",
- "serde_json",
- "sgx_tstd",
- "sp-core",
- "sp-io",
- "sp-runtime",
- "sp-std",
- "sp-version",
-]
-
-[[package]]
 name = "pallet-subscan"
 version = "4.0.0-dev"
 dependencies = [
@@ -2060,6 +2029,7 @@ dependencies = [
  "parity-scale-codec",
  "scale-info",
  "sgx_tstd",
+ "sol-client",
  "sp-core",
  "sp-runtime",
  "sp-std",
@@ -2844,6 +2814,33 @@ dependencies = [
 ]
 
 [[package]]
+name = "sol-client"
+version = "4.0.0-dev"
+dependencies = [
+ "base64 0.21.2",
+ "bs58",
+ "bytes",
+ "frame-support",
+ "hex",
+ "interstellar-common-traits",
+ "interstellar-http-client 0.5.0 (git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=feature/bitcoin-client)",
+ "interstellar-ipfs-client",
+ "log",
+ "pallet-balances",
+ "pallet-key-manager",
+ "pallet-proxy",
+ "parity-scale-codec",
+ "scale-info",
+ "serde",
+ "serde_json",
+ "sgx_tstd",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-version",
+]
+
+[[package]]
 name = "sp-api"
 version = "4.0.0-dev"
 source = "git+https://github.com/paritytech/substrate.git?branch=polkadot-v0.9.39#8c4b84520cee2d7de53cc33cb67605ce4efefba8"
@@ -3232,7 +3229,6 @@ dependencies = [
  "pallet-mobile-registry",
  "pallet-nfc-recovery",
  "pallet-ocw-garble",
- "pallet-sol-client",
  "pallet-subscan",
  "pallet-token-recovery",
  "pallet-tx-manager",
@@ -3244,6 +3240,7 @@ dependencies = [
  "sgx_tseal",
  "sgx_tstd",
  "sgx_types",
+ "sol-client",
  "sp-application-crypto",
  "sp-io",
 ]
