@@ -33,6 +33,29 @@ use std::slice;
 // Import crypto operations from key-manager
 use pallet_key_manager::crypto_ops::{self, KeyType, PublicKeyData, SignedType};
 
+// =============================================================================
+// ECDSA SGX Workaround
+// =============================================================================
+//
+// ECDSA verification in SGX requires a workaround because integritee-network's sp-io
+// has `secp256k1_ecdsa_recover_compressed` as an unimplemented stub that always
+// returns [0; 33].
+//
+// Our `crypto_ops::verify_signature()` bypasses this by using `ecdsa::Pair::verify`
+// directly instead of `sp_runtime::traits::Verify` for ECDSA signatures.
+//
+// This allows:
+// - ETH transaction signing (secp256k1) to work in SGX ✅
+// - BTC transaction signing (secp256k1) to work in SGX ✅
+// - SOL transaction signing (ed25519) to work in SGX ✅
+// - DOT transaction signing (sr25519/ed25519) to work in SGX ✅
+//
+// References:
+// - Stub location: https://github.com/integritee-network/worker/blob/d3b6371/core-primitives/substrate-sgx/sp-io/src/lib.rs
+// - Substrate Verify trait: https://github.com/paritytech/substrate/blob/polkadot-v0.9.39/primitives/runtime/src/traits.rs
+// - Investigation: /home/pratn/.claude/plans/glittery-churning-axolotl.md
+// =============================================================================
+
 /// Tests SGX crypto functionality for the key-manager pallet.
 ///
 /// This function verifies the full crypto flow in SGX:
@@ -166,27 +189,10 @@ fn test_ecdsa_sign_verify_roundtrip() {
         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
         17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32
     ];
+    let aad = [2u8; 32];
     let message = b"test message for ECDSA signing";
 
-    // Test WITHOUT seal/unseal first to isolate the issue
-    println!("  [Debug] Testing ECDSA without seal/unseal...");
-    let public_key_direct = crypto_ops::derive_public_key(&seed, &KeyType::EcDSA);
-    let signature_direct = crypto_ops::sign_with_seed(&seed, message, &KeyType::EcDSA);
-
-    let verified_direct = crypto_ops::verify_signature(&public_key_direct, message, &signature_direct);
-    println!("  [Debug] Direct ECDSA verification result: {}", verified_direct);
-
-    if !verified_direct {
-        println!("  [Debug] ECDSA verification failed WITHOUT seal/unseal");
-        println!("  [Debug] This suggests an ECDSA implementation issue, not seal/unseal");
-        // Don't fail the whole test suite - mark as known issue
-        println!("  ⚠ ECDSA sign/verify has issues (skipping for now)");
-        return;
-    }
-
-    // Now test with seal/unseal
-    println!("  [Debug] Testing ECDSA with seal/unseal...");
-    let aad = [2u8; 32];
+    // Seal → Unseal
     let sealed = crypto_ops::seal_seed(&seed, &aad).expect("seal");
     let unsealed = crypto_ops::unseal_seed(&sealed, &aad).expect("unseal");
 
@@ -202,12 +208,25 @@ fn test_ecdsa_sign_verify_roundtrip() {
     println!("  ✓ ECDSA sign/verify roundtrip passed");
 }
 
-/// Test 5: ECDSA Prehashed Signing (SKIPPED - ECDSA issues in SGX)
+/// Test 5: ECDSA Prehashed Signing
 fn test_ecdsa_sign_prehashed() {
     println!("[SGX Test] Test 5: ECDSA Prehashed Signing");
-    println!("  ⚠ Skipping ECDSA tests due to known SGX compatibility issues");
-    // Note: ECDSA signature verification doesn't work correctly in SGX simulation mode
-    // This is a known issue with the cryptographic libraries, not our implementation
+
+    let seed = [88u8; 32];
+    let prehashed = [0xab; 32]; // Pre-computed hash
+
+    // Derive public key and sign prehashed data
+    let public_key = crypto_ops::derive_public_key(&seed, &KeyType::EcDSA);
+    let signature = crypto_ops::sign_prehashed_with_seed(&seed, &prehashed, &KeyType::EcDSA);
+
+    // Verify with the prehashed data using verify_prehashed_signature
+    // (NOT verify_signature, which would re-hash the data)
+    assert!(
+        crypto_ops::verify_prehashed_signature(&public_key, &prehashed, &signature),
+        "ECDSA prehashed signature should verify"
+    );
+
+    println!("  ✓ ECDSA prehashed signing passed");
 }
 
 /// Test 6: Full Keypair Lifecycle (generate → seal → unseal → sign → verify)
