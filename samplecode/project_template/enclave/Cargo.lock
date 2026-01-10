@@ -1796,6 +1796,29 @@ dependencies = [
 ]
 
 [[package]]
+name = "pallet-airdrop"
+version = "0.1.0"
+dependencies = [
+ "btc-client",
+ "dot-client",
+ "eth-client",
+ "frame-support",
+ "frame-system",
+ "garble-core",
+ "hex",
+ "interstellar-common-traits",
+ "log",
+ "pallet-key-manager",
+ "parity-scale-codec",
+ "scale-info",
+ "sgx_tstd",
+ "sol-client",
+ "sp-core",
+ "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
 name = "pallet-balances"
 version = "4.0.0-dev"
 source = "git+https://github.com/paritytech/substrate.git?branch=polkadot-v0.9.39#8c4b84520cee2d7de53cc33cb67605ce4efefba8"
@@ -1830,11 +1853,15 @@ dependencies = [
  "scale-info",
  "serde",
  "serde_json",
+ "sgx_trts",
+ "sgx_tseal",
  "sgx_tstd",
+ "sgx_types",
  "sp-core",
  "sp-io",
  "sp-runtime",
  "sp-std",
+ "zeroize",
 ]
 
 [[package]]
@@ -3232,6 +3259,7 @@ dependencies = [
  "garble-core",
  "interstellar-extended-signature",
  "pallet-account-manager",
+ "pallet-airdrop",
  "pallet-key-manager",
  "pallet-mobile-registry",
  "pallet-nfc-recovery",
