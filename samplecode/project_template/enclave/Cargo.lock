@@ -1819,6 +1819,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "pallet-airdrop-signer"
+version = "0.1.0"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "hex",
+ "interstellar-common-traits",
+ "parity-scale-codec",
+ "scale-info",
+ "sgx_tstd",
+ "sp-core",
+ "sp-std",
+]
+
+[[package]]
 name = "pallet-balances"
 version = "4.0.0-dev"
 source = "git+https://github.com/paritytech/substrate.git?branch=polkadot-v0.9.39#8c4b84520cee2d7de53cc33cb67605ce4efefba8"
@@ -3260,6 +3275,7 @@ dependencies = [
  "interstellar-extended-signature",
  "pallet-account-manager",
  "pallet-airdrop",
+ "pallet-airdrop-signer",
  "pallet-key-manager",
  "pallet-mobile-registry",
  "pallet-nfc-recovery",
