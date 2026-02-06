@@ -53,7 +53,6 @@ pallet-mobile-registry = { path = "../../../../pallets/mobile-registry/", defaul
 interstellar-extended-signature = { path = "../../../../crates/extended-signature/", default-features = false }
 garble-core = { path = "../../../../crates/ocw-garble/", default-features = false, features = ["sgx"] }
 pallet-key-manager = { path = "../../../../pallets/key-manager/", default-features = false, features = ["sgx", "testing"] }
-pallet-subscan = { path = "../../../../pallets/subscan", default-features = false , features = ["sgx"] }
 dot-client = { path = "../../../../pallets/dot-client", default-features = false , features = ["sgx"] }
 sol-client = { path = "../../../../pallets/sol-client", default-features = false , features = ["sgx"] }
 eth-client = { path = "../../../../pallets/eth-client", default-features = false, features = ["sgx"] }
