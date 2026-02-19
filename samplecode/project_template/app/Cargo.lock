@@ -31,11 +31,6 @@ dependencies = [
 ]
 
 [[patch.unused]]
-name = "sp-io"
-version = "7.0.0"
-source = "git+https://github.com/integritee-network/worker.git?rev=d3b6371613e2470ab5680c1bc7b68cd85cc2773b#d3b6371613e2470ab5680c1bc7b68cd85cc2773b"
-
-[[patch.unused]]
 name = "sgx_alloc"
 version = "1.1.6"
 source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6-testing#9c1bbd52f188f600a212b57c916124245da1b7fd"
@@ -104,6 +99,11 @@ source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6
 name = "sgx_tunittest"
 version = "1.1.6"
 source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6-testing#9c1bbd52f188f600a212b57c916124245da1b7fd"
+
+[[patch.unused]]
+name = "sp-io"
+version = "7.0.0"
+source = "git+https://github.com/integritee-network/worker.git?rev=d3b6371613e2470ab5680c1bc7b68cd85cc2773b#d3b6371613e2470ab5680c1bc7b68cd85cc2773b"
 
 [[patch.unused]]
 name = "log"
