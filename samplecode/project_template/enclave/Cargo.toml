@@ -60,6 +60,7 @@ pallet-tx-manager = { path = "../../../../pallets/tx-manager", default-features 
 btc-client = { path = "../../../../pallets/btc-client", default-features = false, features = ["sgx"] }
 pallet-airdrop = { path = "../../../../pallets/airdrop", default-features = false, features = ["sgx"] }
 interstellar-node-rpc = { path = "../../../../crates/interstellar-node-rpc/", default-features = false, features = ["sgx"] }
+pallet-onramp-signer = { path = "../../../../pallets/onramp-signer/", default-features = false }
 # ADDED:
 # The sp-io patch MUST activate sp-io/sgx else it FAIL with:
 # Compiling environmental v1.1.3 (https://github.com/integritee-network/worker.git?rev=b54c825#b54c825f)

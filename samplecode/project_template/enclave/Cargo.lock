@@ -1273,12 +1273,14 @@ version = "0.1.0"
 dependencies = [
  "circuits-storage-common",
  "frame-support",
+ "log",
  "parity-scale-codec",
  "scale-info",
  "serde_json",
  "sp-core",
  "sp-runtime",
  "sp-std",
+ "uuid",
 ]
 
 [[package]]
@@ -1722,6 +1724,7 @@ dependencies = [
  "frame-support",
  "frame-system",
  "garble-core",
+ "getrandom",
  "hex",
  "interstellar-common-traits",
  "log",
@@ -1733,6 +1736,7 @@ dependencies = [
  "sp-core",
  "sp-runtime",
  "sp-std",
+ "uuid",
 ]
 
 [[package]]
@@ -1839,6 +1843,22 @@ dependencies = [
  "sgx_tstd",
  "sp-core",
  "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
+name = "pallet-onramp-signer"
+version = "0.1.0"
+dependencies = [
+ "base64 0.21.2",
+ "config-provider",
+ "frame-support",
+ "frame-system",
+ "hex",
+ "hmac",
+ "parity-scale-codec",
+ "scale-info",
+ "sha2 0.10.7",
  "sp-std",
 ]
 
@@ -3131,6 +3151,7 @@ dependencies = [
  "pallet-mobile-registry",
  "pallet-nfc-recovery",
  "pallet-ocw-garble",
+ "pallet-onramp-signer",
  "pallet-token-recovery",
  "pallet-tx-manager",
  "sgx_alloc",
@@ -3311,6 +3332,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a156c684c91ea7d62626509bce3cb4e1d9ed5c4d978f7b4352658f96a4c26b4a"
 
 [[package]]
+name = "uuid"
+version = "1.20.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ee48d38b119b0cd71fe4141b30f5ba9c7c5d9f4e7a3a8b4a674e4b6ef789976f"
+
+[[package]]
 name = "version_check"
 version = "0.9.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3386,16 +3413,6 @@ dependencies = [
 ]
 
 [[patch.unused]]
-name = "env_logger"
-version = "0.9.0"
-source = "git+https://github.com/integritee-network/env_logger-sgx#55745829b2ae8a77f0915af3671ec8a9a00cace9"
-
-[[patch.unused]]
-name = "getrandom"
-version = "0.2.3"
-source = "git+https://github.com/integritee-network/getrandom-sgx?branch=update-v2.3#0a4af01fe1df0e6200192e7a709fd18da413466e"
-
-[[patch.unused]]
 name = "sgx_crypto_helper"
 version = "1.1.6"
 source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6-testing#9c1bbd52f188f600a212b57c916124245da1b7fd"
@@ -3424,3 +3441,13 @@ source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6
 name = "sgx_tunittest"
 version = "1.1.6"
 source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?branch=v1.1.6-testing#9c1bbd52f188f600a212b57c916124245da1b7fd"
+
+[[patch.unused]]
+name = "env_logger"
+version = "0.9.0"
+source = "git+https://github.com/integritee-network/env_logger-sgx#55745829b2ae8a77f0915af3671ec8a9a00cace9"
+
+[[patch.unused]]
+name = "getrandom"
+version = "0.2.3"
+source = "git+https://github.com/integritee-network/getrandom-sgx?branch=update-v2.3#0a4af01fe1df0e6200192e7a709fd18da413466e"
