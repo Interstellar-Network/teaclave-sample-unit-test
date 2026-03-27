@@ -46,7 +46,7 @@ default = []
 
 [dependencies]
 lib-garble-rs = { path = "../../../../lib-garble-rs", default-features = false, features = [
-    "sgx",
+    "alloc",
 ] }
 # ADDED:
 # The sp-io patch MUST activate sp-io/sgx else it FAIL with:
