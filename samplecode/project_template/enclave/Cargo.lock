@@ -1875,6 +1875,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "pallet-rollback-test"
+version = "0.1.0"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "parity-scale-codec",
+ "scale-info",
+]
+
+[[package]]
 name = "pallet-timestamp"
 version = "4.0.0-dev"
 source = "git+https://github.com/paritytech/substrate.git?branch=polkadot-v0.9.39#8c4b84520cee2d7de53cc33cb67605ce4efefba8"
@@ -3135,6 +3145,7 @@ dependencies = [
  "pallet-mobile-registry",
  "pallet-nfc-recovery",
  "pallet-ocw-garble",
+ "pallet-rollback-test",
  "pallet-token-recovery",
  "pallet-tx-manager",
  "sgx_alloc",
