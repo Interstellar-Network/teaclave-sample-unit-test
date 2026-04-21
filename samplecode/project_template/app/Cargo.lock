@@ -46,14 +46,14 @@ version = "0.4.17"
 source = "git+https://github.com/integritee-network/log-sgx#483383a9be3e2e900042eef9b6b2d0837411783f"
 
 [[patch.unused]]
-name = "sp-io"
-version = "7.0.0"
-source = "git+https://github.com/integritee-network/worker.git?rev=d3b6371613e2470ab5680c1bc7b68cd85cc2773b#d3b6371613e2470ab5680c1bc7b68cd85cc2773b"
-
-[[patch.unused]]
 name = "log"
 version = "0.4.17"
 source = "git+https://github.com/integritee-network/log-sgx#483383a9be3e2e900042eef9b6b2d0837411783f"
+
+[[patch.unused]]
+name = "sp-io"
+version = "7.0.0"
+source = "git+https://github.com/integritee-network/worker.git?rev=d3b6371613e2470ab5680c1bc7b68cd85cc2773b#d3b6371613e2470ab5680c1bc7b68cd85cc2773b"
 
 [[patch.unused]]
 name = "sgx_alloc"
