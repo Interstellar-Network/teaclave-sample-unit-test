@@ -13,6 +13,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "ab_glyph"
+version = "0.2.32"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "01c0457472c38ea5bd1c3b5ada5e368271cb550be7a4ca4a0b4634e9913f6cc2"
+dependencies = [
+ "ab_glyph_rasterizer",
+ "libm",
+ "owned_ttf_parser",
+]
+
+[[package]]
 name = "ab_glyph_rasterizer"
 version = "0.1.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -98,15 +109,6 @@ name = "android-tzdata"
 version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e999941b234f3131b00bc13c22d06e8c5ff726d1b6318ac7eb276997bbb4fef0"
-
-[[package]]
-name = "approx"
-version = "0.5.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cab112f0a86d568ea0e627cc1d6be74a1e9cd55214684db5561995f6dad897c6"
-dependencies = [
- "num-traits",
-]
 
 [[package]]
 name = "array-bytes"
@@ -306,7 +308,7 @@ dependencies = [
  "frame-system",
  "hex",
  "interstellar-common-traits",
- "interstellar-http-client 0.5.0 (git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=feature/bitcoin-client)",
+ "interstellar-http-client",
  "log",
  "pallet-key-manager",
  "parity-scale-codec",
@@ -331,12 +333,6 @@ name = "byte-tools"
 version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e3b5ca7a04898ad4bcd41c90c5285445ff5b791899bb1b0abdd2a2aa791211d7"
-
-[[package]]
-name = "bytemuck"
-version = "1.13.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "17febce684fd15d89027105661fec94afb475cb995fbc59d2865198446ba2eea"
 
 [[package]]
 name = "byteorder"
@@ -422,14 +418,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "67ba02a97a2bd10f4b59b25c7973101c79642302776489e030cd13cdab09ed15"
 
 [[package]]
-name = "color_quant"
-version = "1.1.0"
-source = "git+https://github.com/Interstellar-Network/color_quant.git?branch=sgx-nostd-compat#fbf3d237f92828524e55c34d0792db9d7f4ee6dc"
-dependencies = [
- "num-traits",
-]
-
-[[package]]
 name = "config-provider"
 version = "0.1.0"
 
@@ -452,6 +440,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "239fa3ae9b63c2dc74bd3fa852d4792b8b305ae64eeede946265b6af62f1fff3"
 dependencies = [
  "memchr",
+]
+
+[[package]]
+name = "core_maths"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "77745e017f5edba1a9c1d854f6f3a52dac8a12dd5af5d2f54aecf61e43d80d30"
+dependencies = [
+ "libm",
 ]
 
 [[package]]
@@ -663,7 +660,7 @@ dependencies = [
  "frame-system",
  "hex",
  "interstellar-common-traits",
- "interstellar-http-client 0.5.0 (git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=feature/bitcoin-client)",
+ "interstellar-http-client",
  "interstellar-ipfs-client",
  "log",
  "pallet-balances",
@@ -793,7 +790,7 @@ dependencies = [
  "frame-system",
  "hex",
  "interstellar-common-traits",
- "interstellar-http-client 0.5.0 (git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=feature/bitcoin-client)",
+ "interstellar-http-client",
  "k256 0.13.4",
  "log",
  "pallet-key-manager",
@@ -992,7 +989,7 @@ dependencies = [
  "getrandom",
  "hex",
  "interstellar-common-traits",
- "interstellar-http-client 0.5.0 (git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=feature/bitcoin-client)",
+ "interstellar-http-client",
  "interstellar-ipfs-client",
  "lib-garble-rs",
  "log",
@@ -1170,38 +1167,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b9e0384b61958566e926dc50660321d12159025e767c18e043daf26b70104c39"
 
 [[package]]
-name = "image"
-version = "0.24.5"
-source = "git+https://github.com/Interstellar-Network/image.git?branch=sgx-nostd-compat#94c8f76bdd774a856da9de31bfa39c0a9663232a"
-dependencies = [
- "bytemuck",
- "byteorder",
- "color_quant",
- "num-rational",
- "num-traits",
- "sgx_tstd",
-]
-
-[[package]]
-name = "imageproc"
-version = "0.23.0"
-source = "git+https://github.com/Interstellar-Network/imageproc.git?branch=sgx-nostd-compat#fdc07c0cf6720fa9d3924828d7a9db307311ffc9"
-dependencies = [
- "approx",
- "image",
- "itertools",
- "nalgebra",
- "num",
- "num-traits",
- "rand",
- "rand_chacha",
- "rand_core 0.6.4",
- "rand_distr",
- "rusttype",
- "sgx_tstd",
-]
-
-[[package]]
 name = "impl-codec"
 version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1299,24 +1264,6 @@ dependencies = [
 [[package]]
 name = "interstellar-http-client"
 version = "0.5.0"
-source = "git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=feature/bitcoin-client#29302fdb970a1e9b7ce650d693ef42ec2e12c7eb"
-dependencies = [
- "base64 0.21.2",
- "bytes",
- "cfg-if",
- "hex",
- "http_req",
- "log",
- "parity-scale-codec",
- "serde",
- "serde_json",
- "snafu",
-]
-
-[[package]]
-name = "interstellar-http-client"
-version = "0.5.0"
-source = "git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=main#0272cab77323c02286599fe10a32e5175dbe09a0"
 dependencies = [
  "base64 0.21.2",
  "bytes",
@@ -1333,9 +1280,8 @@ dependencies = [
 [[package]]
 name = "interstellar-ipfs-client"
 version = "0.5.0"
-source = "git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=main#0272cab77323c02286599fe10a32e5175dbe09a0"
 dependencies = [
- "interstellar-http-client 0.5.0 (git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=main)",
+ "interstellar-http-client",
  "log",
  "serde",
  "serde_json",
@@ -1353,7 +1299,7 @@ dependencies = [
  "frame-support",
  "hex",
  "interstellar-common-traits",
- "interstellar-http-client 0.5.0 (git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=feature/bitcoin-client)",
+ "interstellar-http-client",
  "interstellar-ipfs-client",
  "log",
  "serde_json",
@@ -1442,20 +1388,18 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
 [[package]]
 name = "lib-garble-rs"
 version = "2.0.0"
-source = "git+ssh://git@github.com/Interstellar-Network/lib-garble-rs-internal.git?branch=main#d382e3edc6057786abc630bbd7514137400b1987"
+source = "git+ssh://git@github.com/Interstellar-Network/lib-garble-rs-internal.git?branch=103-no-std-2026#b6da5c4308ea280796d74ffadd52cbb7e6dc369b"
 dependencies = [
+ "ab_glyph",
  "bitvec",
  "bytes",
  "circuit-types-rs",
  "hashbrown 0.14.0",
- "image",
- "imageproc",
  "log",
  "num_enum",
  "postcard 1.0.4",
  "rand",
  "rand_chacha",
- "rusttype",
  "serde",
  "snafu",
  "xxhash-rust",
@@ -1546,94 +1490,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "nalgebra"
-version = "0.30.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4fb2d0de08694bed883320212c18ee3008576bfe8c306f4c3c4a58b4876998be"
-dependencies = [
- "approx",
- "num-complex",
- "num-rational",
- "num-traits",
- "simba",
- "typenum",
-]
-
-[[package]]
-name = "num"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "43db66d1170d347f9a065114077f7dccb00c1b9478c89384490a3425279a4606"
-dependencies = [
- "num-bigint",
- "num-complex",
- "num-integer",
- "num-iter",
- "num-rational",
- "num-traits",
-]
-
-[[package]]
-name = "num-bigint"
-version = "0.4.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f93ab6289c7b344a8a9f60f88d80aa20032336fe78da341afc91c8a2341fc75f"
-dependencies = [
- "autocfg",
- "num-integer",
- "num-traits",
-]
-
-[[package]]
-name = "num-complex"
-version = "0.4.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "02e0d21255c828d6f128a1e41534206671e8c3ea0c62f32291e808dc82cff17d"
-dependencies = [
- "num-traits",
-]
-
-[[package]]
-name = "num-integer"
-version = "0.1.45"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "225d3389fb3509a24c93f5c29eb6bde2586b98d9f016636dff58d7c6f7569cd9"
-dependencies = [
- "autocfg",
- "num-traits",
-]
-
-[[package]]
-name = "num-iter"
-version = "0.1.43"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7d03e6c028c5dc5cac6e2dec0efda81fc887605bb3d884578bb6d6bf7514e252"
-dependencies = [
- "autocfg",
- "num-integer",
- "num-traits",
-]
-
-[[package]]
-name = "num-rational"
-version = "0.4.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0638a1c9d0a3c0914158145bc76cff373a75a627e6ecbfb71cbe6f453a5a19b0"
-dependencies = [
- "autocfg",
- "num-bigint",
- "num-integer",
- "num-traits",
-]
-
-[[package]]
 name = "num-traits"
 version = "0.2.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "578ede34cf02f8924ab9447f50c28075b4d3e5b269972345e7e0372b38c6cdcd"
 dependencies = [
  "autocfg",
- "libm",
 ]
 
 [[package]]
@@ -1676,9 +1538,9 @@ checksum = "624a8340c38c1b80fd549087862da4ba43e08858af025b236e509b6649fc13d5"
 
 [[package]]
 name = "owned_ttf_parser"
-version = "0.15.2"
+version = "0.25.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "05e6affeb1632d6ff6a23d2cd40ffed138e82f1532571a26f527c8a284bb2fbb"
+checksum = "36820e9051aca1014ddc75770aab4d68bc1e9e632f0f5627c4086bc216fb583b"
 dependencies = [
  "ttf-parser",
 ]
@@ -1829,7 +1691,7 @@ dependencies = [
  "frame-system",
  "hex",
  "interstellar-common-traits",
- "interstellar-http-client 0.5.0 (git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=feature/bitcoin-client)",
+ "interstellar-http-client",
  "interstellar-ipfs-client",
  "lib-garble-rs",
  "log",
@@ -1904,7 +1766,7 @@ dependencies = [
  "getrandom",
  "hex",
  "interstellar-common-traits",
- "interstellar-http-client 0.5.0 (git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=feature/bitcoin-client)",
+ "interstellar-http-client",
  "interstellar-ipfs-client",
  "lib-garble-rs",
  "log",
@@ -2170,16 +2032,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "rand_distr"
-version = "0.4.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "32cb0b9bc82b0a0876c2dd994a7e7a2683d3e7390ca40e6886785ef0c7e3ee31"
-dependencies = [
- "num-traits",
- "rand",
-]
-
-[[package]]
 name = "ref-cast"
 version = "1.0.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2284,17 +2136,6 @@ dependencies = [
  "sct",
  "sgx_tstd",
  "webpki",
-]
-
-[[package]]
-name = "rusttype"
-version = "0.9.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3ff8374aa04134254b7995b63ad3dc41c7f7236f69528b28553da7d72efaa967"
-dependencies = [
- "ab_glyph_rasterizer",
- "libm",
- "owned_ttf_parser",
 ]
 
 [[package]]
@@ -2677,18 +2518,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "simba"
-version = "0.7.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2f3fd720c48c53cace224ae62bef1bbff363a70c68c4802a78b5cc6159618176"
-dependencies = [
- "approx",
- "num-complex",
- "num-traits",
- "paste",
-]
-
-[[package]]
 name = "smallvec"
 version = "1.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2727,7 +2556,7 @@ dependencies = [
  "frame-system",
  "hex",
  "interstellar-common-traits",
- "interstellar-http-client 0.5.0 (git+ssh://git@github.com/Interstellar-Network/rs-common-internal.git?branch=feature/bitcoin-client)",
+ "interstellar-http-client",
  "interstellar-ipfs-client",
  "log",
  "pallet-balances",
@@ -3232,9 +3061,12 @@ checksum = "f4f195fd851901624eee5a58c4bb2b4f06399148fcd0ed336e6f1cb60a9881df"
 
 [[package]]
 name = "ttf-parser"
-version = "0.15.2"
+version = "0.25.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7b3e06c9b9d80ed6b745c7159c40b311ad2916abb34a49e9be2653b90db0d8dd"
+checksum = "d2df906b07856748fa3f6e0ad0cbaa047052d4a7dd609e231c4f72cee8c36f31"
+dependencies = [
+ "core_maths",
+]
 
 [[package]]
 name = "twox-hash"
