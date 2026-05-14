@@ -1388,7 +1388,7 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
 [[package]]
 name = "lib-garble-rs"
 version = "2.0.0"
-source = "git+ssh://git@github.com/Interstellar-Network/lib-garble-rs-internal.git?branch=103-no-std-2026#b6da5c4308ea280796d74ffadd52cbb7e6dc369b"
+source = "git+ssh://git@github.com/Interstellar-Network/lib-garble-rs-internal.git?branch=main#4f6f842fa0822efef38a38bda7fefacc7580c911"
 dependencies = [
  "ab_glyph",
  "bitvec",
