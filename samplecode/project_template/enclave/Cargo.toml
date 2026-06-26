@@ -51,14 +51,15 @@ pallet-account-manager = { path = "../../../../pallets/account-manager", default
 pallet-token-recovery = { path = "../../../../pallets/token-recovery", default-features = false, features = ["sgx"] }
 pallet-mobile-registry = { path = "../../../../pallets/mobile-registry/", default-features = false }
 interstellar-extended-signature = { path = "../../../../crates/extended-signature/", default-features = false }
-garble-core = { path = "../../../../crates/garble-core/", default-features = false, features = ["sgx"] }
+garble-core = { path = "../../../../crates/ocw-garble/", default-features = false, features = ["sgx"] }
 pallet-key-manager = { path = "../../../../pallets/key-manager/", default-features = false, features = ["sgx"] }
-pallet-subscan = { path = "../../../../pallets/subscan", default-features = false , features = ["sgx"] }
-pallet-dot-client = { path = "../../../../pallets/dot-client", default-features = false , features = ["sgx"] }
-pallet-sol-client = { path = "../../../../pallets/sol-client", default-features = false , features = ["sgx"] }
-pallet-eth-client = { path = "../../../../pallets/eth-client", default-features = false , features = ["sgx"] }
-pallet-btc-client = { path = "../../../../pallets/btc-client", default-features = false , features = ["sgx"] }
+dot-client = { path = "../../../../pallets/dot-client", default-features = false , features = ["sgx"] }
+sol-client = { path = "../../../../pallets/sol-client", default-features = false , features = ["sgx"] }
+eth-client = { path = "../../../../pallets/eth-client", default-features = false , features = ["sgx"] }
+btc-client = { path = "../../../../pallets/btc-client", default-features = false , features = ["sgx"] }
+pallet-airdrop = { path = "../../../../pallets/airdrop", default-features = false, features = ["sgx"] }
 interstellar-node-rpc = { path = "../../../../crates/interstellar-node-rpc/", default-features = false , features = ["sgx"] }
+constant_time_eq = "=0.3.0"
 # ADDED:
 # The sp-io patch MUST activate sp-io/sgx else it FAIL with:
 # Compiling environmental v1.1.3 (https://github.com/integritee-network/worker.git?rev=b54c825#b54c825f)
@@ -82,7 +83,7 @@ interstellar-node-rpc = { path = "../../../../crates/interstellar-node-rpc/", de
 # versions that meet the requirements `^7` are: 7.0.0
 # the package `template` depends on `sp-io`, with features: `sgx` but `sp-io` does not have these features.
 # TODO
-sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "v0.16.1", default-features = false, features = ["sgx"] }
+sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "v0.17.0", default-features = false, features = ["sgx"] }
 # Same issues from this dep:
 # We MUST enable "sp-application-crypto/full_crypto; it is normally done by sp-io but only for "std"
 # So we add a "fake" dep to "sp-application-crypto" here
@@ -133,9 +134,9 @@ log = { git = "https://github.com/integritee-network/log-sgx" }
 # https://github.com/integritee-network/worker/blob/v0.16.1/enclave-runtime/Cargo.toml#L157
 # That one is the `rev` that match the link!
 [patch."https://github.com/paritytech/substrate"]
-sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "v0.16.1" }
+sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "v0.17.0" }
 [patch."https://github.com/paritytech/substrate.git"]
-sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "v0.16.1" }
+sp-io = { version = "7.0.0", git = "https://github.com/integritee-network/worker.git", rev = "v0.17.0" }
 
 # https://github.com/integritee-network/worker/blob/v0.16.1/enclave-runtime/Cargo.toml#L160
 # That one is just copy-pasted
@@ -155,11 +156,3 @@ sgx_tseal = { version = "1.1.6", git = "https://github.com/apache/incubator-teac
 sgx_tstd = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
 sgx_tunittest = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
 sgx_types = { version = "1.1.6", git = "https://github.com/apache/incubator-teaclave-sgx-sdk", branch = "master" }
-
-################################################################################
-[patch."ssh://git@github.com/Interstellar-Network/rs-common-internal.git"]
-tests-utils = { path = "../../../../../rs-common-internal/tests_utils/" }
-interstellar-http-client-new = { path = "../../../../../rs-common-internal/http-client-new/" }
-interstellar-ipfs-client-new = { path = "../../../../../rs-common-internal/ipfs-client-http-req-new/" }
-interstellar-http-client-old = { path = "../../../../../rs-common-internal/http-client-old/" }
-interstellar-ipfs-client-old = { path = "../../../../../rs-common-internal/ipfs-client-http-req-old/" }
