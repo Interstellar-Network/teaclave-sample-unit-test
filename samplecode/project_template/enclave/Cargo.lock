@@ -399,9 +399,10 @@ dependencies = [
 [[package]]
 name = "circuit-types-rs"
 version = "0.1.0"
-source = "git+ssh://git@github.com/Interstellar-Network/lib_circuits-internal.git?branch=main#98888f2e7d468770869acd4632106331b31ada1e"
+source = "git+ssh://git@github.com/Interstellar-Network/lib_circuits-internal.git?branch=288-replace-yosys-abc#5c67093b928658fe0ec685951da549bc0ecd1956"
 dependencies = [
  "hashbrown 0.14.0",
+ "parity-scale-codec",
  "postcard 1.0.4",
  "serde 1.0.226",
  "snafu",
@@ -1350,7 +1351,7 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
 [[package]]
 name = "lib-garble-rs"
 version = "2.0.0"
-source = "git+ssh://git@github.com/Interstellar-Network/lib-garble-rs-internal.git?branch=main#9a35c66d252584178b7f19b7afab9a469518b035"
+source = "git+ssh://git@github.com/Interstellar-Network/lib-garble-rs-internal.git?branch=288-replace-yosys-abc#9de18e9909cba8737b1eafe243e434b066ee111e"
 dependencies = [
  "ab_glyph",
  "bitvec",
